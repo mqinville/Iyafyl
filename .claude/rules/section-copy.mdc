@@ -1,0 +1,34 @@
+---
+description: Put section prose in component JSX; keep only structured records in lib
+alwaysApply: true
+---
+
+# Section copy vs lib data
+
+Structured, repeatable records belong in `lib/`. Section-level prose belongs in the matching section component as HTML — not as a string array next to those records.
+
+`lib/about.ts` exports `aboutInterests` (and href/id helpers) only. The About biography is a `<p>` in `components/about.tsx`. The Home intro is already a `<p>` in `components/home.tsx`. Do not add `aboutBio`-style copy arrays to content modules.
+
+```tsx
+// ❌ BAD — section copy in the data file
+export const aboutBio: string[] = [
+  "This half of the page is less about what I ship...",
+]
+
+{aboutBio.map((paragraph) => (
+  <p key={paragraph}>{paragraph}</p>
+))}
+
+// ✅ GOOD — nested records stay in lib
+export const aboutInterests: AboutInterest[] = [
+  { id: "hockey", title: "Montreal Canadiens", caption: "..." },
+]
+
+// ✅ GOOD — biography is HTML in the section component
+<p className="mt-8 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
+  This half of the page is less about what I ship and more about how I
+  spend time when I’m not in an editor.
+</p>
+```
+
+Still keep experiences, projects, skills, education, and interest prints as typed arrays in `lib/`. Do not inline those records in components.

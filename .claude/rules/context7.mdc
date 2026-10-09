@@ -1,0 +1,18 @@
+---
+description: Use Context7 MCP for current library and framework documentation
+alwaysApply: true
+---
+
+# Context7
+
+Use the Context7 MCP (`user-context7`) whenever you need documentation for a library, framework, SDK, API, CLI, or cloud service — including well-known ones like Next.js, React, Tailwind, and shadcn. Prefer it over web search and over training memory.
+
+Do not use Context7 for refactors, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
+
+## How to look up docs
+
+1. Call `resolve-library-id` with the official library name and a specific query.
+2. Call `query-docs` with the returned Context7 library ID (format `/org/project`) and one focused topic per call.
+3. Do not call either tool more than 3 times per question.
+
+For Next.js App Router APIs in this repo, also read `node_modules/next/dist/docs/` — this version has breaking changes that Context7 may not match.

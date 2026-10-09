@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#e9e7e1;font-family:Geist,system-ui,sans-serif}a{color:inherit;text-decoration:none}a:hover{opacity:.8}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}.dv-card{max-width:100%;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}.dv-brief{max-width:760px;font:13px/1.6 system-ui,sans-serif;color:rgba(0,0,0,.65);margin:0 0 26px}</style>
+</helmet>
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname"><a class="dv-oid" href="#2c">2c</a> in orange, light and dark</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="3a">
+<div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Light: <a class="dv-oid" href="#2c">2c</a> with an orange accent</div>
+<div class="dv-card" style="width:1280px;background:#f4f0e6;color:#17150f;font-family:Geist,sans-serif">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px;border-bottom:1px solid #17150f">
+    <div style="display:flex;align-items:stretch;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:25px;line-height:1;letter-spacing:0"><span style="background:#1c1c1e;color:#ffffff;padding:6px 6px 5px 10px;border-radius:5px 0 0 5px">Iyaf</span><span style="background:#d9661f;color:#111111;padding:6px 10px 5px 6px;border-radius:0 5px 5px 0">yl</span></div>
+    <nav style="display:flex;gap:30px;font-size:13px;color:#6b6558"><a href="#" style="color:#17150f;font-weight:600">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calculator</a><a href="#">Rankings</a><a href="#">Hall of Fame</a></nav>
+  </header>
+  <div style="padding:80px 56px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
+    <span style="font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#b4501a">Week 6 · 2026</span>
+    <h1 style="margin:0;max-width:980px;font-family:'Instrument Serif',serif;font-weight:400;font-size:88px;line-height:1;letter-spacing:-.015em;text-wrap:balance">Felix stays perfect. Connor is still looking for a win.</h1>
+    <p style="margin:0;max-width:600px;font-family:Newsreader,serif;font-size:20px;line-height:1.5;color:#3d382e;text-wrap:pretty">The 5–0 team plays the 0–5 team on Sunday.</p>
+  </div>
+  <div style="margin:0 56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:3px double #17150f;border-bottom:1px solid #17150f">
+    <div style="padding:36px 40px 36px 0;border-right:1px solid #cfc7b5;display:grid;grid-template-columns:140px minmax(0,1fr);gap:28px;align-items:center">
+      <div style="height:180px;background:repeating-linear-gradient(135deg,#ece6d8 0 8px,#e6dfcf 8px 16px);border:1px solid #cfc7b5;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:10px;color:#8b8474">3D trophy</div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#b4501a">Fantasy Guru</span><span style="font-family:'Instrument Serif',serif;font-size:48px;line-height:1">Dre</span><span style="font-size:13px;color:#6b6558">Lamb Chops · defending champion</span></div>
+    </div>
+    <div style="padding:36px 0 36px 40px;display:flex;flex-direction:column;justify-content:center;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#17150f">King Sh*t</span><span style="font-family:'Instrument Serif',serif;font-size:48px;line-height:1">Connor</span><span style="font-family:Newsreader,serif;font-style:italic;font-size:18px;color:#3d382e">Next one works a full shift at Waffle House.</span></div>
+  </div>
+  <div style="margin:0 56px 56px;padding-top:28px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:24px">Top of the table</h3><a href="#" style="font-size:12px;font-weight:600;color:#b4501a">All 12 teams →</a></div>
+    <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid #17150f">
+      <sc-for list="{{ top6 }}" as="t" hint-placeholder-count="6"><div style="padding:16px 16px 4px 0;display:flex;flex-direction:column;gap:6px;border-right:1px solid #ddd5c4;padding-left:16px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#8b8474">No. {{ t.rank }}</span><span style="font-family:Newsreader,serif;font-size:18px;font-weight:600;line-height:1.15">{{ t.team }}</span><span style="font-size:12px;color:#6b6558">{{ t.mgr }} · <span style="font-family:'Geist Mono',monospace;color:#17150f">{{ t.rec }}</span></span></div></sc-for>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="dv-opt" id="3b">
+<div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Dark: warm black, cream, orange</div>
+<div class="dv-card" style="width:1280px;background:#121110;color:#f1ede4;font-family:Geist,sans-serif">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px;border-bottom:1px solid #3a3732">
+    <div style="display:flex;align-items:stretch;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:25px;line-height:1;letter-spacing:0;box-shadow:0 0 0 1px #3a3732;border-radius:5px"><span style="background:#1c1c1e;color:#ffffff;padding:6px 6px 5px 10px;border-radius:5px 0 0 5px">Iyaf</span><span style="background:#ec8a43;color:#111111;padding:6px 10px 5px 6px;border-radius:0 5px 5px 0">yl</span></div>
+    <nav style="display:flex;gap:30px;font-size:13px;color:#a39d91"><a href="#" style="color:#f1ede4;font-weight:600">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calculator</a><a href="#">Rankings</a><a href="#">Hall of Fame</a></nav>
+  </header>
+  <div style="padding:80px 56px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
+    <span style="font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#ec8a43">Week 6 · 2026</span>
+    <h1 style="margin:0;max-width:980px;font-family:'Instrument Serif',serif;font-weight:400;font-size:88px;line-height:1;letter-spacing:-.015em;text-wrap:balance">Felix stays perfect. Connor is still looking for a win.</h1>
+    <p style="margin:0;max-width:600px;font-family:Newsreader,serif;font-size:20px;line-height:1.5;color:#c4bfb3;text-wrap:pretty">The 5–0 team plays the 0–5 team on Sunday.</p>
+  </div>
+  <div style="margin:0 56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:3px double #5a554c;border-bottom:1px solid #3a3732">
+    <div style="padding:36px 40px 36px 0;border-right:1px solid #2c2a26;display:grid;grid-template-columns:140px minmax(0,1fr);gap:28px;align-items:center">
+      <div style="height:180px;background:repeating-linear-gradient(135deg,#1b1a18 0 8px,#171614 8px 16px);border:1px solid #2c2a26;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:10px;color:#6f6a61">3D trophy</div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#ec8a43">Fantasy Guru</span><span style="font-family:'Instrument Serif',serif;font-size:48px;line-height:1">Dre</span><span style="font-size:13px;color:#a39d91">Lamb Chops · defending champion</span></div>
+    </div>
+    <div style="padding:36px 0 36px 40px;display:flex;flex-direction:column;justify-content:center;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#a39d91">King Sh*t</span><span style="font-family:'Instrument Serif',serif;font-size:48px;line-height:1">Connor</span><span style="font-family:Newsreader,serif;font-style:italic;font-size:18px;color:#c4bfb3">Next one works a full shift at Waffle House.</span></div>
+  </div>
+  <div style="margin:0 56px 56px;padding-top:28px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:24px">Top of the table</h3><a href="#" style="font-size:12px;font-weight:600;color:#ec8a43">All 12 teams →</a></div>
+    <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid #3a3732">
+      <sc-for list="{{ top6 }}" as="t" hint-placeholder-count="6"><div style="padding:16px 16px 4px 0;display:flex;flex-direction:column;gap:6px;border-right:1px solid #24221f;padding-left:16px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#6f6a61">No. {{ t.rank }}</span><span style="font-family:Newsreader,serif;font-size:18px;font-weight:600;line-height:1.15">{{ t.team }}</span><span style="font-size:12px;color:#a39d91">{{ t.mgr }} · <span style="font-family:'Geist Mono',monospace;color:#f1ede4">{{ t.rec }}</span></span></div></sc-for>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+<p class="dv-next">Try next: "build the team page and standings in <a class="dv-oid" href="#3b">3b</a>" · "add a light/dark toggle" · "show <a class="dv-oid" href="#3a">3a</a> on mobile"</p>
+</section>
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Simplified: <a class="dv-oid" href="#1b">1b</a>'s newspaper layout with elements of <a class="dv-oid" href="#1a">1a</a></span></div>
+<p class="dv-brief">The home page now has two jobs: tell the week's story and show where everyone stands. I cut the photo, the stat strip, the odds widget and the power-ranking arrows (those move to the Standings page). What's left: masthead, lead story, the Guru / King Sh*t pair from <a class="dv-oid" href="#1a">1a</a>, standings split at the playoff line, and this week's slate. <a class="dv-oid" href="#2a">2a</a> and <a class="dv-oid" href="#2b">2b</a> are the same layout in day and night palettes. <a class="dv-oid" href="#2c">2c</a> cuts even further.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Morning edition: paper and ink, with <a class="dv-oid" href="#1a">1a</a>'s brass and serif headline</div>
+<div class="dv-card" style="width:1280px;background:#f4f0e6;color:#17150f;font-family:Geist,sans-serif">
+  <div style="padding:34px 56px 0;display:flex;flex-direction:column;align-items:center;gap:10px">
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="width:40px;height:40px;border:1px solid #9a7b3c;border-radius:50%;display:flex;align-items:center;justify-content:center"><div style="width:24px;height:15px;border:1.5px solid #9a7b3c;border-radius:50%;transform:rotate(-32deg);display:flex;align-items:center;justify-content:center"><div style="width:8px;height:1.5px;background:#9a7b3c"></div></div></div>
+      <h1 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:52px;line-height:1;letter-spacing:-.02em">If Ya Ain't First, You're Last</h1>
+    </div>
+    <span style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#6b6558">Week 6 · Thursday, October 8, 2026 · Est. 2019</span>
+  </div>
+  <nav style="margin:24px 56px 0;border-top:3px double #17150f;border-bottom:1px solid #17150f;display:flex;justify-content:center;gap:40px;padding:11px 0;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase">
+    <a href="#" style="color:#9a7b3c">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calculator</a><a href="#">Rankings</a><a href="#">Hall of Fame</a>
+  </nav>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);margin:0 56px;border-bottom:1px solid #17150f">
+    <article style="padding:48px 48px 48px 0;border-right:1px solid #cfc7b5;display:flex;flex-direction:column;gap:20px">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#9a7b3c">Week 5 in review</span>
+      <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:64px;line-height:1.02;letter-spacing:-.01em;text-wrap:balance">Felix stays perfect. Connor is still looking for a win.</h2>
+      <p style="margin:0;max-width:560px;font-family:Newsreader,serif;font-size:19px;line-height:1.5;color:#3d382e;text-wrap:pretty">Bijan Mustard put up 147.9 to move to 5–0. Tua Legit fell to 0–5, and the two play each other on Sunday.</p>
+      <a href="#" style="font-size:13px;font-weight:600;color:#9a7b3c">Read the full recap →</a>
+    </article>
+    <aside style="padding:40px 0 40px 40px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:center">
+        <div style="height:156px;border:1px solid #cfc7b5;background:repeating-linear-gradient(135deg,#ece6d8 0 8px,#e6dfcf 8px 16px);display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Geist Mono',monospace;font-size:10px;color:#8b8474">3D trophy</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#9a7b3c">Reigning Fantasy Guru</span>
+          <span style="font-family:'Instrument Serif',serif;font-size:40px;line-height:1">Dre</span>
+          <span style="font-size:13px;color:#6b6558">Lamb Chops · 2025 champion</span>
+        </div>
+      </div>
+      <div style="border-top:1px solid #cfc7b5;padding-top:24px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#8a2a22">Reigning King Sh*t</span><span style="font-size:12px;color:#6b6558">Connor · 2025</span></div>
+        <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;line-height:1.2">“A full shift at Waffle House, in uniform.”</span>
+        <span style="font-size:12px;color:#6b6558">The 2026 punishment, locked at the draft.</span>
+      </div>
+    </aside>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);margin:0 56px 52px">
+    <div style="padding:30px 48px 0 0;border-right:1px solid #cfc7b5">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:24px">Standings</h3><a href="#" style="font-size:12px;font-weight:600;color:#9a7b3c">Full standings →</a></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px">
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#9a7b3c;padding:6px 0;border-bottom:2px solid #17150f">Playoff spots</div>
+          <sc-for list="{{ top6 }}" as="t" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid #ddd5c4"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#8b8474">{{ t.rank }}</span><span style="font-family:Newsreader,serif;font-size:17px;font-weight:500">{{ t.team }} <span style="font-family:Geist;font-size:11px;color:#6b6558">{{ t.mgr }}</span></span><span style="font-family:'Geist Mono',monospace;font-size:13px">{{ t.rec }}</span></div></sc-for>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#6b6558;padding:6px 0;border-bottom:2px solid #17150f">On the outside</div>
+          <sc-for list="{{ bot6 }}" as="t" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid #ddd5c4"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#8b8474">{{ t.rank }}</span><span style="font-family:Newsreader,serif;font-size:17px;font-weight:500">{{ t.team }} <span style="font-family:Geist;font-size:11px;color:#6b6558">{{ t.mgr }}</span></span><span style="font-family:'Geist Mono',monospace;font-size:13px">{{ t.rec }}</span></div></sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="padding:30px 0 0 40px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:24px">This week</h3><span style="font-size:12px;color:#6b6558">Projected</span></div>
+      <sc-for list="{{ matchups }}" as="m" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:10px 0;border-top:1px solid #ddd5c4;font-size:13.5px"><span style="font-weight:600">{{ m.a }}</span><span style="font-family:'Geist Mono',monospace">{{ m.ap }}</span><span style="color:#6b6558">{{ m.b }}</span><span style="font-family:'Geist Mono',monospace;color:#6b6558">{{ m.bp }}</span></div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Evening edition: the same layout in <a class="dv-oid" href="#1a">1a</a>'s green, cream and brass</div>
+<div class="dv-card" style="width:1280px;background:#0e1411;color:#efe9dc;font-family:Geist,sans-serif">
+  <div style="padding:34px 56px 0;display:flex;flex-direction:column;align-items:center;gap:10px">
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="width:40px;height:40px;border:1px solid #c2a15e;border-radius:50%;display:flex;align-items:center;justify-content:center"><div style="width:24px;height:15px;border:1.5px solid #c2a15e;border-radius:50%;transform:rotate(-32deg);display:flex;align-items:center;justify-content:center"><div style="width:8px;height:1.5px;background:#c2a15e"></div></div></div>
+      <h1 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:52px;line-height:1;letter-spacing:-.02em">If Ya Ain't First, You're Last</h1>
+    </div>
+    <span style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#a39e90">Week 6 · Thursday, October 8, 2026 · Est. 2019</span>
+  </div>
+  <nav style="margin:24px 56px 0;border-top:3px double #c2a15e;border-bottom:1px solid #3a4538;display:flex;justify-content:center;gap:40px;padding:11px 0;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#a39e90">
+    <a href="#" style="color:#c2a15e">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calculator</a><a href="#">Rankings</a><a href="#">Hall of Fame</a>
+  </nav>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);margin:0 56px;border-bottom:1px solid #3a4538">
+    <article style="padding:48px 48px 48px 0;border-right:1px solid #26302a;display:flex;flex-direction:column;gap:20px">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#c2a15e">Week 5 in review</span>
+      <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:64px;line-height:1.02;letter-spacing:-.01em;text-wrap:balance">Felix stays perfect. Connor is still looking for a win.</h2>
+      <p style="margin:0;max-width:560px;font-family:Newsreader,serif;font-size:19px;line-height:1.5;color:#b9b3a4;text-wrap:pretty">Bijan Mustard put up 147.9 to move to 5–0. Tua Legit fell to 0–5, and the two play each other on Sunday.</p>
+      <a href="#" style="font-size:13px;font-weight:600;color:#c2a15e">Read the full recap →</a>
+    </article>
+    <aside style="padding:40px 0 40px 40px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:center">
+        <div style="height:156px;border:1px solid #26302a;background:repeating-linear-gradient(135deg,#151d18 0 8px,#121a15 8px 16px);display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Geist Mono',monospace;font-size:10px;color:#6f7a70">3D trophy</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#c2a15e">Reigning Fantasy Guru</span>
+          <span style="font-family:'Instrument Serif',serif;font-size:40px;line-height:1">Dre</span>
+          <span style="font-size:13px;color:#a39e90">Lamb Chops · 2025 champion</span>
+        </div>
+      </div>
+      <div style="border-top:1px solid #26302a;padding-top:24px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#d08070">Reigning King Sh*t</span><span style="font-size:12px;color:#a39e90">Connor · 2025</span></div>
+        <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;line-height:1.2">“A full shift at Waffle House, in uniform.”</span>
+        <span style="font-size:12px;color:#a39e90">The 2026 punishment, locked at the draft.</span>
+      </div>
+    </aside>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);margin:0 56px 52px">
+    <div style="padding:30px 48px 0 0;border-right:1px solid #26302a">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:24px">Standings</h3><a href="#" style="font-size:12px;font-weight:600;color:#c2a15e">Full standings →</a></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px">
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#c2a15e;padding:6px 0;border-bottom:1px solid #c2a15e">Playoff spots</div>
+          <sc-for list="{{ top6 }}" as="t" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid #1d2620"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#6f7a70">{{ t.rank }}</span><span style="font-family:Newsreader,serif;font-size:17px;font-weight:500">{{ t.team }} <span style="font-family:Geist;font-size:11px;color:#6f7a70">{{ t.mgr }}</span></span><span style="font-family:'Geist Mono',monospace;font-size:13px">{{ t.rec }}</span></div></sc-for>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#a39e90;padding:6px 0;border-bottom:1px solid #3a4538">On the outside</div>
+          <sc-for list="{{ bot6 }}" as="t" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid #1d2620"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#6f7a70">{{ t.rank }}</span><span style="font-family:Newsreader,serif;font-size:17px;font-weight:500">{{ t.team }} <span style="font-family:Geist;font-size:11px;color:#6f7a70">{{ t.mgr }}</span></span><span style="font-family:'Geist Mono',monospace;font-size:13px">{{ t.rec }}</span></div></sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="padding:30px 0 0 40px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:24px">This week</h3><span style="font-size:12px;color:#a39e90">Projected</span></div>
+      <sc-for list="{{ matchups }}" as="m" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:10px 0;border-top:1px solid #1d2620;font-size:13.5px"><span style="font-weight:600">{{ m.a }}</span><span style="font-family:'Geist Mono',monospace">{{ m.ap }}</span><span style="color:#a39e90">{{ m.b }}</span><span style="font-family:'Geist Mono',monospace;color:#a39e90">{{ m.bp }}</span></div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Front page only: the headline, the two titles, the top of the table. Everything else is one click away.</div>
+<div class="dv-card" style="width:1280px;background:#f4f0e6;color:#17150f;font-family:Geist,sans-serif">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px;border-bottom:1px solid #17150f">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:30px;height:19px;border:1.5px solid #17150f;border-radius:50%;transform:rotate(-32deg);display:flex;align-items:center;justify-content:center"><div style="width:10px;height:1.5px;background:#17150f"></div></div>
+      <span style="font-family:Newsreader,serif;font-weight:600;font-size:22px;letter-spacing:.04em">IYAFYL</span>
+    </div>
+    <nav style="display:flex;gap:30px;font-size:13px;color:#6b6558"><a href="#" style="color:#17150f;font-weight:600">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calculator</a><a href="#">Rankings</a><a href="#">Hall of Fame</a></nav>
+  </header>
+  <div style="padding:80px 56px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
+    <span style="font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#9a7b3c">Week 6 · 2026</span>
+    <h1 style="margin:0;max-width:980px;font-family:'Instrument Serif',serif;font-weight:400;font-size:88px;line-height:1;letter-spacing:-.015em;text-wrap:balance">Felix stays perfect. Connor is still looking for a win.</h1>
+    <p style="margin:0;max-width:600px;font-family:Newsreader,serif;font-size:20px;line-height:1.5;color:#3d382e;text-wrap:pretty">The 5–0 team plays the 0–5 team on Sunday.</p>
+  </div>
+  <div style="margin:0 56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:3px double #17150f;border-bottom:1px solid #17150f">
+    <div style="padding:36px 40px 36px 0;border-right:1px solid #cfc7b5;display:grid;grid-template-columns:140px minmax(0,1fr);gap:28px;align-items:center">
+      <div style="height:180px;background:repeating-linear-gradient(135deg,#ece6d8 0 8px,#e6dfcf 8px 16px);border:1px solid #cfc7b5;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:10px;color:#8b8474">3D trophy</div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#9a7b3c">Fantasy Guru</span><span style="font-family:'Instrument Serif',serif;font-size:48px;line-height:1">Dre</span><span style="font-size:13px;color:#6b6558">Lamb Chops · defending champion</span></div>
+    </div>
+    <div style="padding:36px 0 36px 40px;display:flex;flex-direction:column;justify-content:center;gap:8px"><span style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#8a2a22">King Sh*t</span><span style="font-family:'Instrument Serif',serif;font-size:48px;line-height:1">Connor</span><span style="font-family:Newsreader,serif;font-style:italic;font-size:18px;color:#3d382e">Next one works a full shift at Waffle House.</span></div>
+  </div>
+  <div style="margin:0 56px 56px;padding-top:28px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:24px">Top of the table</h3><a href="#" style="font-size:12px;font-weight:600;color:#9a7b3c">All 12 teams →</a></div>
+    <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid #17150f">
+      <sc-for list="{{ top6 }}" as="t" hint-placeholder-count="6"><div style="padding:16px 16px 4px 0;display:flex;flex-direction:column;gap:6px;border-right:1px solid #ddd5c4;padding-left:16px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#8b8474">No. {{ t.rank }}</span><span style="font-family:Newsreader,serif;font-size:18px;font-weight:600;line-height:1.15">{{ t.team }}</span><span style="font-size:12px;color:#6b6558">{{ t.mgr }} · <span style="font-family:'Geist Mono',monospace;color:#17150f">{{ t.rec }}</span></span></div></sc-for>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "<a class="dv-oid" href="#2a">2a</a>, now build the team page and standings" · "<a class="dv-oid" href="#2c">2c</a> but keep this week's slate" · "show <a class="dv-oid" href="#2a">2a</a> on mobile"</p>
+</section>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">League home — three directions</span></div>
+<p class="dv-brief">Fresh identity for <b>If Ya Ain't First, You're Last</b>. Same content in all three (12-team redraft, Week 6 of 2026, Sleeper-synced) so you can compare look and hierarchy, not data. Each home leads with the league's two titles, the <b>Fantasy Guru</b> and <b>King Sh*t</b>, then standings, this week's matchups and the race to the bottom. The trophy slots are placeholders for a real 3D render of your printed trophy. Team names and the punishment are stand-ins.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Clubhouse: deep green, cream, brass. Serif display, members'-club calm.</div>
+<div class="dv-card" style="width:1280px;background:#0e1411;color:#efe9dc;font-family:Geist,sans-serif">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 44px;border-bottom:1px solid #26302a">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="position:relative;width:46px;height:46px;border:1px solid #c2a15e;border-radius:50%;display:flex;align-items:center;justify-content:center">
+        <div style="width:28px;height:17px;border:1.5px solid #c2a15e;border-radius:50%;transform:rotate(-32deg);display:flex;align-items:center;justify-content:center"><div style="width:10px;height:1.5px;background:#c2a15e"></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-family:'Instrument Serif',serif;font-size:26px;line-height:1;letter-spacing:.06em">IYAFYL</span>
+        <span style="font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:#a39e90">If ya ain't first, you're last</span>
+      </div>
+    </div>
+    <nav style="display:flex;gap:30px;font-size:13px;color:#a39e90">
+      <a href="#" style="color:#efe9dc;border-bottom:1px solid #c2a15e;padding-bottom:4px">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calculator</a><a href="#">Rankings</a><a href="#">Hall of Fame</a><a href="#">History</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#a39e90"><span style="width:6px;height:6px;border-radius:50%;background:#7fa37a"></span>Sleeper synced · 2m ago</div>
+  </header>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0;border-bottom:1px solid #26302a">
+    <div style="padding:56px 44px 48px;border-right:1px solid #26302a;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#c2a15e">2026 Season · Week 6 of 14</span>
+        <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:68px;line-height:1.02;letter-spacing:-.01em;text-wrap:balance">Felix stays perfect. Connor is still looking for a win.</h1>
+        <p style="margin:0;max-width:520px;font-size:15px;line-height:1.6;color:#a39e90;text-wrap:pretty">Bijan Mustard is the last unbeaten team. Tua Legit is the last winless one, and they play each other Sunday with a projected 89–11 split.</p>
+      </div>
+      <div style="display:flex;gap:44px">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#a39e90">Trade deadline</span><span style="font-family:'Geist Mono',monospace;font-size:22px">Nov 18</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#a39e90">Playoffs begin</span><span style="font-family:'Geist Mono',monospace;font-size:22px">Week 15</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#a39e90">League high score</span><span style="font-family:'Geist Mono',monospace;font-size:22px">168.2 <span style="font-family:Geist;font-size:12px;color:#a39e90">Dre · Wk 3</span></span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-rows:auto auto">
+      <div style="padding:32px 36px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;align-items:center;border-bottom:1px solid #26302a">
+        <div style="height:190px;border:1px solid #26302a;border-radius:6px;background:repeating-linear-gradient(135deg,#151d18 0 8px,#121a15 8px 16px);display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Geist Mono',monospace;font-size:10px;color:#6f7a70;padding:10px">3D trophy render<br>(rotates)</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#c2a15e">Reigning Fantasy Guru</span>
+          <span style="font-family:'Instrument Serif',serif;font-size:38px;line-height:1">Dre</span>
+          <span style="font-size:13px;color:#a39e90">Lamb Chops · 2025 champion · 11–3, 1,742.6 PF</span>
+          <a href="#" style="font-size:12px;color:#c2a15e;margin-top:4px">Every champion →</a>
+        </div>
+      </div>
+      <div style="padding:28px 36px;display:flex;flex-direction:column;gap:12px;background:#121915">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#c46a5a">Reigning King Sh*t</span><span style="font-size:12px;color:#a39e90">Connor · 2025</span></div>
+        <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:24px;line-height:1.25">“A full shift at Waffle House, in uniform.”</span>
+        <span style="font-size:12px;color:#a39e90">The 2026 punishment. Locked at the draft, Aug 29.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)">
+    <div style="padding:36px 44px;border-right:1px solid #26302a">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px"><h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:30px">Standings</h2><a href="#" style="font-size:12px;color:#c2a15e">Full standings & power rankings →</a></div>
+      <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 70px 80px 60px 56px;padding:0 0 10px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6f7a70;border-bottom:1px solid #26302a"><span>#</span><span>Team</span><span style="text-align:right">Record</span><span style="text-align:right">PF</span><span style="text-align:right">Strk</span><span style="text-align:right">PWR</span></div>
+      <sc-for list="{{ teams }}" as="t" hint-placeholder-count="12">
+        <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 70px 80px 60px 56px;align-items:center;padding:11px 0;border-bottom:1px solid #1d2620;font-size:14px">
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#6f7a70">{{ t.rank }}</span>
+          <span style="display:flex;align-items:baseline;gap:10px;min-width:0"><span style="white-space:nowrap">{{ t.team }}</span><span style="font-size:12px;color:#6f7a70">{{ t.mgr }}</span></span>
+          <span style="text-align:right;font-family:'Geist Mono',monospace;font-size:13px">{{ t.rec }}</span>
+          <span style="text-align:right;font-family:'Geist Mono',monospace;font-size:13px;color:#a39e90">{{ t.pf }}</span>
+          <span style="text-align:right;font-family:'Geist Mono',monospace;font-size:12px;color:#a39e90">{{ t.strk }}</span>
+          <span style="text-align:right;font-family:'Geist Mono',monospace;font-size:12px"><sc-if value="{{ t.up }}" hint-placeholder-val="{{ false }}"><span style="color:#7fa37a">▲{{ t.mv }}</span></sc-if><sc-if value="{{ t.down }}" hint-placeholder-val="{{ false }}"><span style="color:#c46a5a">▼{{ t.mv }}</span></sc-if><sc-if value="{{ t.flat }}" hint-placeholder-val="{{ true }}"><span style="color:#6f7a70">—</span></sc-if></span>
+        </div>
+        <sc-if value="{{ t.cut }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:12px;padding:8px 0;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#c2a15e"><span style="flex:1;height:1px;background:#c2a15e;opacity:.5"></span>Playoff line<span style="flex:1;height:1px;background:#c2a15e;opacity:.5"></span></div></sc-if>
+      </sc-for>
+    </div>
+    <div style="padding:36px 36px;display:flex;flex-direction:column;gap:36px">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px"><h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:30px">Week 6</h2><span style="font-size:12px;color:#a39e90">Projected · Sun Oct 11</span></div>
+        <sc-for list="{{ matchups }}" as="m" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 54px;gap:6px 14px;padding:12px 0;border-bottom:1px solid #1d2620;font-size:13px">
+            <span>{{ m.a }}</span><span style="text-align:right;font-family:'Geist Mono',monospace">{{ m.ap }}</span>
+            <span style="color:#a39e90">{{ m.b }}</span><span style="text-align:right;font-family:'Geist Mono',monospace;color:#a39e90">{{ m.bp }}</span>
+            <div style="grid-column:1 / -1;height:2px;background:#26302a;margin-top:4px"><div style="height:2px;background:#c2a15e;width:{{ m.pct }}"></div></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="border:1px solid #3a2a26;border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:24px">King Sh*t Watch</h3><span style="font-size:11px;color:#a39e90">Odds of finishing last</span></div>
+        <sc-for list="{{ ks }}" as="k" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 110px 44px;gap:12px;align-items:center;font-size:13px"><span>{{ k.mgr }} <span style="color:#6f7a70">· {{ k.rec }}</span></span><div style="height:4px;background:#26302a;border-radius:2px"><div style="height:4px;border-radius:2px;background:#c46a5a;width:{{ k.w }}"></div></div><span style="text-align:right;font-family:'Geist Mono',monospace">{{ k.odds }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <footer style="display:flex;justify-content:space-between;padding:20px 44px;border-top:1px solid #26302a;font-size:11px;color:#6f7a70"><span>Est. 2019 · 12 teams · Full PPR · Redraft</span><span>Data from Sleeper. Read-only.</span></footer>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Broadsheet: warm paper, black ink, oxblood. Reads like the league's own newspaper.</div>
+<div class="dv-card" style="width:1280px;background:#f4f0e6;color:#17150f;font-family:Geist,sans-serif">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 48px;font-size:11px;color:#6b6558;border-bottom:1px solid #d8d1c1"><span>Thursday, October 8, 2026</span><span style="display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:#4f7a4a"></span>Synced with Sleeper</span><span>Vol. VIII · Week 6</span></div>
+  <div style="padding:30px 48px 0;display:flex;flex-direction:column;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:22px">
+      <div style="width:44px;height:27px;border:2px solid #17150f;border-radius:50%;transform:rotate(-32deg);display:flex;align-items:center;justify-content:center"><div style="width:16px;height:2px;background:#17150f"></div></div>
+      <h1 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:64px;line-height:1;letter-spacing:-.02em">If Ya Ain't First, You're Last</h1>
+      <div style="width:44px;height:27px;border:2px solid #17150f;border-radius:50%;transform:rotate(32deg);display:flex;align-items:center;justify-content:center"><div style="width:16px;height:2px;background:#17150f"></div></div>
+    </div>
+    <span style="font-family:Newsreader,serif;font-style:italic;font-size:15px;color:#6b6558">The official record of the league, est. 2019</span>
+  </div>
+  <nav style="margin:22px 48px 0;border-top:3px double #17150f;border-bottom:1px solid #17150f;display:flex;justify-content:center;gap:38px;padding:11px 0;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase">
+    <a href="#" style="color:#8a2a22">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calculator</a><a href="#">Rankings</a><a href="#">Hall of Fame</a><a href="#">History</a>
+  </nav>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,.95fr);margin:0 48px">
+    <article style="padding:30px 30px 34px 0;border-right:1px solid #cfc7b5;display:flex;flex-direction:column;gap:16px">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8a2a22">Week 5 in review</span>
+      <h2 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:46px;line-height:1.04;letter-spacing:-.015em;text-wrap:balance">Bijan Mustard moves to 5–0. Tua Legit drops to 0–5.</h2>
+      <p style="margin:0;font-family:Newsreader,serif;font-size:18px;line-height:1.5;color:#3d382e;text-wrap:pretty">Felix put up 147.9 and gave the rest of the league no room. At the other end, Connor has scored the fewest points through five weeks and plays the unbeaten team on Sunday.</p>
+      <div style="height:240px;margin-top:6px;border:1px solid #cfc7b5;background:repeating-linear-gradient(135deg,#ece6d8 0 8px,#e6dfcf 8px 16px);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;color:#8b8474">photo of the week (league group chat)</div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #17150f;padding-top:14px;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#6b6558">Top score</span><span style="font-family:Newsreader,serif;font-size:24px;font-weight:600">147.9</span><span style="font-size:12px;color:#6b6558">Bijan Mustard</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#6b6558">Closest game</span><span style="font-family:Newsreader,serif;font-size:24px;font-weight:600">0.6</span><span style="font-size:12px;color:#6b6558">Chase Bank over Puka Shells</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#6b6558">Bench blunder</span><span style="font-family:Newsreader,serif;font-size:24px;font-weight:600">31.4</span><span style="font-size:12px;color:#6b6558">Liam benched Waddle</span></div>
+      </div>
+    </article>
+
+    <div style="padding:30px 28px;border-right:1px solid #cfc7b5">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #17150f;padding-bottom:8px"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:22px">Standings</h3><span style="font-size:11px;color:#6b6558">W–L · PF</span></div>
+      <sc-for list="{{ teams }}" as="t" hint-placeholder-count="12">
+        <div style="display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px solid #ddd5c4">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#8b8474">{{ t.rank }}</span>
+          <span style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-family:Newsreader,serif;font-size:16px;font-weight:500;line-height:1.2">{{ t.team }}</span><span style="font-size:11px;color:#6b6558">{{ t.mgr }}</span></span>
+          <span style="text-align:right;font-family:'Geist Mono',monospace;font-size:12px;white-space:nowrap">{{ t.rec }} <span style="color:#8b8474">{{ t.pf }}</span></span>
+        </div>
+        <sc-if value="{{ t.cut }}" hint-placeholder-val="{{ false }}"><div style="border-bottom:1px dashed #8a2a22;margin:-1px 0 0;padding:4px 0;font-size:9.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8a2a22;text-align:center">Playoff line</div></sc-if>
+      </sc-for>
+    </div>
+
+    <aside style="padding:30px 0 30px 28px;display:flex;flex-direction:column;gap:26px">
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;border:1px solid #17150f;padding:20px 18px">
+        <span style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase">The Fantasy Guru</span>
+        <div style="width:100%;height:170px;background:repeating-linear-gradient(135deg,#ece6d8 0 8px,#e6dfcf 8px 16px);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:10px;color:#8b8474">3D trophy render</div>
+        <span style="font-family:Newsreader,serif;font-size:26px;font-weight:600;line-height:1.1">Dre, Lamb Chops</span>
+        <span style="font-size:12px;color:#6b6558">Defending champion · 2025</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;background:#17150f;color:#f4f0e6;padding:20px 18px">
+        <span style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#e0a59d">King Sh*t</span>
+        <span style="font-family:Newsreader,serif;font-size:20px;font-weight:500;line-height:1.25">Connor (2025) wore the crown. Who's next?</span>
+        <span style="font-family:Newsreader,serif;font-style:italic;font-size:15px;color:#cfc7b5;line-height:1.4">2026 punishment: a full shift at Waffle House, in uniform.</span>
+        <div style="display:flex;flex-direction:column;gap:7px;border-top:1px solid #3d382e;padding-top:12px;margin-top:2px">
+          <sc-for list="{{ ks }}" as="k" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;font-size:12px"><span>{{ k.mgr }} · {{ k.rec }}</span><span style="font-family:'Geist Mono',monospace">{{ k.odds }}</span></div></sc-for>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div style="margin:0 48px;border-top:3px double #17150f;padding:16px 0 10px;display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0;font-family:Newsreader,serif;font-weight:600;font-size:22px">This week's slate</h3><span style="font-size:11px;color:#6b6558">Projected scores · win probability</span></div>
+  <div style="margin:0 48px 40px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid #17150f">
+    <sc-for list="{{ matchups }}" as="m" hint-placeholder-count="6">
+      <div style="padding:14px 14px 16px;border-right:1px solid #cfc7b5;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><span style="font-weight:600">{{ m.a }}</span><span style="font-family:'Geist Mono',monospace">{{ m.ap }}</span></div>
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#6b6558"><span>{{ m.b }}</span><span style="font-family:'Geist Mono',monospace">{{ m.bp }}</span></div>
+        <span style="font-size:10.5px;color:#8a2a22;font-weight:600">{{ m.pct }} favored</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Primetime: midnight navy, gold vs red. Condensed broadcast type, scoreboard ticker, Guru and King Sh*t side by side.</div>
+<div class="dv-card" style="width:1280px;background:#0b0f17;color:#eef0f4;font-family:Barlow,sans-serif">
+  <div style="display:flex;align-items:stretch;background:#121826;border-bottom:1px solid #232b3b;font-family:'Barlow Condensed',sans-serif;overflow:hidden">
+    <div style="display:flex;align-items:center;padding:0 18px;background:#d9b45a;color:#0b0f17;font-weight:800;font-size:13px;letter-spacing:.12em">WK 6</div>
+    <sc-for list="{{ matchups }}" as="m" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:auto auto;gap:2px 14px;padding:8px 18px;border-right:1px solid #232b3b;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase">
+        <span>{{ m.ma }}</span><span style="text-align:right;color:#d9b45a">{{ m.ap }}</span>
+        <span style="color:#8e97a8">{{ m.mb }}</span><span style="text-align:right;color:#8e97a8">{{ m.bp }}</span>
+      </div>
+    </sc-for>
+  </div>
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:18px 44px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:52px;height:34px;background:#d9b45a;border-radius:50%;transform:rotate(-28deg);display:flex;align-items:center;justify-content:center"><span style="transform:rotate(28deg);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;color:#0b0f17;letter-spacing:.02em">IY</span></div>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;letter-spacing:.08em">IYAFYL</span>
+    </div>
+    <nav style="display:flex;gap:28px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:#8e97a8">
+      <a href="#" style="color:#eef0f4">Home</a><a href="#">Standings</a><a href="#">Teams</a><a href="#">Matchups</a><a href="#">Trade Calc</a><a href="#">Rankings</a><a href="#">Hall of Fame</a><a href="#">History</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:10px;padding:7px 12px;border:1px solid #232b3b;border-radius:6px;font-size:12px;color:#8e97a8"><span style="width:6px;height:6px;border-radius:50%;background:#5fbf7f"></span>Sleeper · FelixM</div>
+  </header>
+
+  <div style="margin:8px 44px 0;display:grid;grid-template-columns:minmax(0,1fr) 300px minmax(0,1fr);border:1px solid #232b3b;border-radius:10px;overflow:hidden">
+    <div style="padding:36px;background:linear-gradient(90deg,rgba(217,180,90,.10),rgba(217,180,90,0));display:flex;flex-direction:column;gap:14px">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.24em;color:#d9b45a">REIGNING FANTASY GURU</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:84px;line-height:.9;text-transform:uppercase">Dre</span>
+      <span style="font-size:14px;color:#8e97a8">Lamb Chops · 2025 · 11–3 · 1,742.6 PF</span>
+      <div style="display:flex;flex-direction:column;gap:4px;margin-top:14px;padding-top:14px;border-top:1px solid #232b3b"><span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8e97a8">2026 favorite</span><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px">Felix · Bijan Mustard <span style="color:#d9b45a">34%</span></span></div>
+    </div>
+    <div style="border-left:1px solid #232b3b;border-right:1px solid #232b3b;background:repeating-linear-gradient(135deg,#121826 0 8px,#0f1420 8px 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:340px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#5c6578;text-align:center">3D trophy render<br>drag to rotate</span>
+    </div>
+    <div style="padding:36px;background:linear-gradient(270deg,rgba(224,97,79,.10),rgba(224,97,79,0));display:flex;flex-direction:column;gap:14px;align-items:flex-end;text-align:right">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.24em;color:#e0614f">REIGNING KING SH*T</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:84px;line-height:.9;text-transform:uppercase">Connor</span>
+      <span style="font-size:14px;color:#8e97a8">Tua Legit · 2025 · 2–12 · back for more</span>
+      <div style="display:flex;flex-direction:column;gap:4px;margin-top:14px;padding-top:14px;border-top:1px solid #232b3b;align-items:flex-end"><span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8e97a8">2026 punishment</span><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px">Full shift at Waffle House</span></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;padding:28px 44px 40px">
+    <div style="background:#121826;border:1px solid #232b3b;border-radius:10px;padding:22px 24px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px"><h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase">Standings</h2><span style="font-size:12px;color:#8e97a8">Top 6 make the playoffs · Week 15</span></div>
+      <sc-for list="{{ teams }}" as="t" hint-placeholder-count="12">
+        <div style="display:grid;grid-template-columns:30px minmax(0,1fr) 150px 54px 66px;gap:12px;align-items:center;padding:8px 0;border-top:1px solid #1b2232;font-size:14px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:#8e97a8">{{ t.rank }}</span>
+          <span style="display:flex;align-items:baseline;gap:10px;min-width:0"><span style="font-weight:600;white-space:nowrap">{{ t.team }}</span><span style="font-size:12px;color:#5c6578">{{ t.mgr }}</span></span>
+          <div style="height:6px;background:#1b2232;border-radius:3px"><div style="height:6px;border-radius:3px;background:#3b4a66;width:{{ t.pfw }}"></div></div>
+          <span style="text-align:right;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px">{{ t.rec }}</span>
+          <span style="text-align:right;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:#8e97a8">{{ t.pf }}</span>
+        </div>
+        <sc-if value="{{ t.cut }}" hint-placeholder-val="{{ false }}"><div style="height:2px;background:#d9b45a;margin:2px 0;border-radius:1px"></div></sc-if>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="background:#121826;border:1px solid #232b3b;border-radius:10px;padding:22px 24px;display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase">Race to the bottom</h2>
+        <sc-for list="{{ ks }}" as="k" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:14px"><span><b style="font-weight:600">{{ k.mgr }}</b> <span style="color:#5c6578">{{ k.team }} · {{ k.rec }}</span></span><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:#e0614f">{{ k.odds }}</span></div><div style="height:6px;background:#1b2232;border-radius:3px"><div style="height:6px;border-radius:3px;background:#e0614f;width:{{ k.w }}"></div></div></div>
+        </sc-for>
+        <span style="font-size:12px;color:#5c6578">Odds of finishing last, simulated from rest-of-season projections.</span>
+      </div>
+      <div style="background:#121826;border:1px solid #232b3b;border-radius:10px;padding:22px 24px;display:flex;flex-direction:column;gap:12px">
+        <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase">Game of the week</h2>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:14px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600">Lamb Chops</span><span style="font-size:12px;color:#8e97a8">Dre · 4–1</span></div>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:#5c6578">VS</span>
+          <div style="display:flex;flex-direction:column;gap:2px;text-align:right"><span style="font-weight:600">Kittle Me This</span><span style="font-size:12px;color:#8e97a8">Marcus · 4–1</span></div>
+        </div>
+        <div style="display:flex;height:8px;border-radius:4px;overflow:hidden"><div style="width:54%;background:#d9b45a"></div><div style="flex:1;background:#3b4a66"></div></div>
+        <div style="display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px"><span>121.0 · 54%</span><span style="color:#8e97a8">46% · 118.7</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "go with <a class="dv-oid" href="#1a">1a</a> and build the team page + standings" · "<a class="dv-oid" href="#1c">1c</a>'s hero with <a class="dv-oid" href="#1b">1b</a>'s weekly recap" · "show <a class="dv-oid" href="#1b">1b</a> on mobile"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const raw = [
+      ['Bijan Mustard','Felix','5–0','712.4','W5',2],
+      ['Lamb Chops','Dre','4–1','688.1','W2',0],
+      ['Kittle Me This','Marcus','4–1','655.0','W3',1],
+      ['Hurts Donut','Josh','3–2','641.7','L1',-2],
+      ['Chase Bank','Tyler','3–2','630.2','W1',1],
+      ['Puka Shells','Nico','3–2','618.9','L1',-1],
+      ['Bowers of Power','Sam','2–3','602.3','L2',0],
+      ['Gibbs Me a Break','Ryan','2–3','597.5','W1',3],
+      ['Breece Lightning','Owen','2–3','581.0','L1',-1],
+      ['Nacua Matata','Ethan','1–4','560.4','L3',0],
+      ['Waddle Waddle','Liam','1–4','548.8','W1',1],
+      ['Tua Legit','Connor','0–5','501.2','L5',-1],
+    ];
+    const teams = raw.map((r, i) => ({
+      rank: i + 1, team: r[0], mgr: r[1], rec: r[2], pf: r[3], strk: r[4],
+      mv: Math.abs(r[5]), up: r[5] > 0, down: r[5] < 0, flat: r[5] === 0,
+      cut: i === 5, pfw: Math.round(((parseFloat(r[3]) - 450) / 280) * 100) + '%'
+    }));
+    const matchups = [
+      ['Bijan Mustard','Felix','128.4','Tua Legit','Connor','96.1','89%'],
+      ['Lamb Chops','Dre','121.0','Kittle Me This','Marcus','118.7','54%'],
+      ['Chase Bank','Tyler','117.9','Hurts Donut','Josh','115.2','54%'],
+      ['Puka Shells','Nico','112.3','Bowers of Power','Sam','109.8','56%'],
+      ['Breece Lightning','Owen','107.0','Gibbs Me a Break','Ryan','104.5','56%'],
+      ['Nacua Matata','Ethan','101.9','Waddle Waddle','Liam','99.4','55%'],
+    ].map(m => ({ a: m[0], ma: m[1], ap: m[2], b: m[3], mb: m[4], bp: m[5], pct: m[6] }));
+    const ks = [
+      { mgr: 'Connor', team: 'Tua Legit', rec: '0–5', odds: '41%', w: '82%' },
+      { mgr: 'Liam', team: 'Waddle Waddle', rec: '1–4', odds: '22%', w: '44%' },
+      { mgr: 'Ethan', team: 'Nacua Matata', rec: '1–4', odds: '18%', w: '36%' },
+    ];
+    return { teams, matchups, ks, top6: teams.slice(0, 6), bot6: teams.slice(6) };
+  }
+}
+</script>
+</body>
+</html>

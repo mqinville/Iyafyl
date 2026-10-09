@@ -1,0 +1,36 @@
+---
+description: Type React function components with FC and named props interfaces
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# React function components
+
+Define React components as typed function components (`FC`), not untyped `function` declarations. Give props a named `interface` — do not inline the props object type on the parameter.
+
+Pure helpers that do not return JSX stay as `function` declarations with explicit parameter and return types.
+
+Leave generated shadcn files in `components/ui/` as the CLI produced them.
+
+```tsx
+// ❌ BAD — untyped function, inline props
+function ProjectLink({ label, href }: { label: string; href: string }) {
+  return <a href={href}>{label}</a>
+}
+
+// ✅ GOOD
+interface ProjectLinkProps {
+  label: string
+  href: string
+}
+
+const ProjectLink: FC<ProjectLinkProps> = ({ label, href }) => {
+  return <a href={href}>{label}</a>
+}
+```
+
+- Import `FC` as a type: `import { type FC } from "react"`
+- Components with no props: `const Projects: FC = () => { ... }`
+- Declare `children` on the props interface when the component accepts them — do not rely on implicit `children`
+- Named exports for reusable UI; default export for page sections (`components/home.tsx`, etc.) and route files
+- Async Server Component routes stay `export default async function` — do not convert those to `FC`
