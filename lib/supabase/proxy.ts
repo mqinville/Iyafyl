@@ -1,10 +1,15 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 
+import { authRoutes, isPublicPath } from "@/lib/auth"
 import type { Database } from "@/lib/supabase/database.types"
 import { getSupabaseEnv } from "@/lib/supabase/env"
 
-/** Refreshes the Supabase auth cookie on each request. No-op when env is unset. */
+/**
+ * Refreshes the Supabase auth cookie on each request and sends signed-out
+ * visitors on non-public paths to /login?next=<path+search>. No-op when env
+ * is unset.
+ */
 export async function updateSession(
   request: NextRequest,
 ): Promise<NextResponse> {
@@ -37,7 +42,28 @@ export async function updateSession(
   })
 
   // Required: validates the token and triggers the refresh. Keep nothing between client creation and this call.
-  await supabase.auth.getClaims()
+  const { data } = await supabase.auth.getClaims()
+
+  const { pathname, search } = request.nextUrl
+  if (!data?.claims && !isPublicPath(pathname)) {
+    const url = request.nextUrl.clone()
+    url.pathname = authRoutes.signIn
+    url.search = ""
+    const original = pathname + search
+    if (original !== authRoutes.home) {
+      url.searchParams.set("next", original)
+    }
+    const redirect = NextResponse.redirect(url)
+    // Keep refreshed/cleared auth cookies and cache headers on the redirect.
+    response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie))
+    for (const key of ["cache-control", "expires", "pragma"]) {
+      const value = response.headers.get(key)
+      if (value) {
+        redirect.headers.set(key, value)
+      }
+    }
+    return redirect
+  }
 
   return response
 }

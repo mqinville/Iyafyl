@@ -1,10 +1,14 @@
+import Link from "next/link"
 import type { FC } from "react"
+import { brandLinkClass } from "@/lib/link-classes"
+import { cn } from "@/lib/utils"
 
 interface ComingSoonProps {
   title: string
+  link?: { href: string; label: string }
 }
 
-export const ComingSoon: FC<ComingSoonProps> = ({ title }) => {
+export const ComingSoon: FC<ComingSoonProps> = ({ title, link }) => {
   return (
     <main
       id="main"
@@ -16,6 +20,11 @@ export const ComingSoon: FC<ComingSoonProps> = ({ title }) => {
       <p className="text-xl leading-normal text-muted-foreground">
         Coming soon.
       </p>
+      {link ? (
+        <Link href={link.href} className={cn(brandLinkClass, "text-sm")}>
+          {link.label}
+        </Link>
+      ) : null}
     </main>
   )
 }
