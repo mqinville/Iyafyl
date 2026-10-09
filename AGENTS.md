@@ -7,3 +7,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Cursor Cloud specific instructions
+
+- Use Bun 1.4.2 (`/usr/local/bin/bun`). `bun.lock` is `lockfileVersion` 2, which the `packageManager` pin `bun@1.3.14` cannot parse (`Unknown lockfile version`). Install with `bun install --frozen-lockfile`.
+- Dev server: `bun run dev -- --hostname 0.0.0.0 --port 3000`.
+- Checks: `bun run lint`, `bun run typecheck`, and `bun run build`. There is no test suite. `next build` uses Turbopack and needs local port binding; if that fails, use `bun x next build --webpack`.
+- `LEAGUE_ID` is optional. With it unset, `/` shows sample standings and the note "Sample data". Live standings need `LEAGUE_ID` in gitignored `.env.local`. Sleeper (`api.sleeper.app`) is a public API and needs no auth.
