@@ -1,14 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
-import { SignInLink } from "@/components/auth/sign-in-link"
-import { UserMenu } from "@/components/auth/user-menu"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLinks } from "@/components/nav-links"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { getUserEmail } from "@/lib/server/auth-session"
+import { ProfileMenu } from "@/components/profile-menu"
+import { getSessionProfile } from "@/lib/server/auth-session"
+import { getSupabaseEnv } from "@/lib/supabase/env"
 
 export async function SiteHeader() {
-  const email = await getUserEmail()
+  const profile = await getSessionProfile()
 
   return (
     <header className="flex items-center justify-between border-b border-rule-strong gutter-x py-[22px]">
@@ -28,9 +27,15 @@ export async function SiteHeader() {
       </Link>
       <div className="flex items-center gap-6">
         <NavLinks className="hidden lg:flex" />
-        {email ? <UserMenu email={email} /> : <SignInLink />}
         <div className="flex items-center gap-1">
-          <ThemeToggle />
+          <ProfileMenu
+            email={profile?.email ?? null}
+            displayName={profile?.displayName ?? null}
+            leagueId={profile?.leagueId ?? null}
+            signedIn={profile !== null}
+            hasEnvLeagueId={Boolean(process.env.LEAGUE_ID)}
+            supabaseAvailable={getSupabaseEnv() !== null}
+          />
           <MobileNav />
         </div>
       </div>

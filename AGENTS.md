@@ -13,7 +13,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Use Bun 1.4.2 (`/usr/local/bin/bun`). `bun.lock` is `lockfileVersion` 2, which the `packageManager` pin `bun@1.3.14` cannot parse (`Unknown lockfile version`). Install with `bun install --frozen-lockfile`.
 - Dev server: `bun run dev -- --hostname 0.0.0.0 --port 3000`.
 - Checks: `bun run lint`, `bun run typecheck`, and `bun run build`. There is no test suite. `next build` uses Turbopack and needs local port binding; if that fails, use `bun x next build --webpack`.
-- `LEAGUE_ID` is optional. With it unset, `/` shows sample standings and the note "Sample data". Live standings need `LEAGUE_ID` in gitignored `.env.local`. Sleeper (`api.sleeper.app`) is a public API and needs no auth.
+- A signed-in user's `profiles.league_id` is the league id when set. `LEAGUE_ID` in gitignored `.env.local` remains the fallback. With neither set, `/` shows sample standings and the note "Sample data". Sleeper (`api.sleeper.app`) is a public API and needs no auth.
 
 ## Backend
 
