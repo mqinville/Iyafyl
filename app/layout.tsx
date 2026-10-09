@@ -1,9 +1,35 @@
 import type { Metadata } from "next"
+import localFont from "next/font/local"
 import type { FC, ReactNode } from "react"
 import { SiteHeader } from "@/components/site-header"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { themeScript } from "@/lib/theme"
+import { cn } from "@/lib/utils"
 import "./globals.css"
+
+// Self-hosted (latin subset, from Google Fonts) so builds never hit the network
+const inter = localFont({
+  src: [
+    { path: "./fonts/Inter-Variable.woff2", weight: "100 900", style: "normal" },
+    {
+      path: "./fonts/Inter-Italic-Variable.woff2",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-inter",
+  display: "swap",
+})
+
+const barlowCondensed = localFont({
+  src: [
+    { path: "./fonts/BarlowCondensed-Medium.woff2", weight: "500" },
+    { path: "./fonts/BarlowCondensed-SemiBold.woff2", weight: "600" },
+    { path: "./fonts/BarlowCondensed-Bold.woff2", weight: "700" },
+  ],
+  variable: "--font-barlow-condensed",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: { default: "IYAFYL · Fantasy football league", template: "%s | IYAFYL" },
@@ -17,7 +43,11 @@ interface RootLayoutProps {
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(inter.variable, barlowCondensed.variable)}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

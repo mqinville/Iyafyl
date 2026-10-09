@@ -19,7 +19,7 @@ const TopOfTable: FC<TopOfTableProps> = ({ home }) => {
   return (
     <section className="gutter-mx mb-14 pt-7">
       <div className="mb-2.5 flex items-baseline justify-between">
-        <h2 className="font-serif text-2xl font-semibold">Top of the table</h2>
+        <h2 className="font-display text-[28px] leading-none font-semibold">Top of the table</h2>
         {home.source !== "sleeper-unavailable" ? (
           <Link
             href="/standings"
@@ -41,7 +41,7 @@ const TopOfTable: FC<TopOfTableProps> = ({ home }) => {
                 <span className="text-faint font-mono text-[11px]">
                   No. {row.rank}
                 </span>
-                <span className="font-serif text-lg leading-[1.15] font-semibold">
+                <span className="font-display text-xl leading-[1.1] font-semibold">
                   {row.teamName}
                 </span>
                 <span className="text-muted-foreground text-xs">

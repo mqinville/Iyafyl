@@ -49,10 +49,10 @@ Fantasy football league site ("Iyafyl"): Next.js 16 App Router + React 19 + Tail
 
 ## Styling
 
-Tailwind v4 with **no `tailwind.config.js`** — the entire theme is `@theme inline` + CSS variables in [app/globals.css](app/globals.css). Token values come verbatim from the design handoff except `--faint`, darkened/lightened in both themes for WCAG AA (see the comments there); the extra blocks (temporary font stacks, `gutter-*` utilities, `color-scheme`, logo text tokens) are ours.
+Tailwind v4 with **no `tailwind.config.js`** — the entire theme is `@theme inline` + CSS variables in [app/globals.css](app/globals.css). Token values come verbatim from the design handoff except `--faint`, darkened/lightened in both themes for WCAG AA (see the comments there); the extra blocks (font variable wiring, `gutter-*` utilities, `color-scheme`, logo text tokens) are ours.
 
 - Horizontal page gutters come from the `gutter-x` (padding) and `gutter-mx` (margin) utilities in `globals.css` (16px, 24px at `sm`, 56px at `md`+). Use them on the header and every home/coming-soon section so left edges align; do not hand-write `px-*`/`mx-*` for page gutters.
-- Fonts are temporary system stacks defined in `globals.css` (an owner decision). The design's Geist/Instrument Serif/Newsreader/Plex faces are to be restored later via `next/font`; keep the variable names.
+- Fonts (an owner decision that replaces the handoff's font table): headings use **Barlow Condensed** 500/600/700 via `font-display`; all other text uses **Inter** (variable, with italic) via `font-sans`, the body default. Both are self-hosted latin-subset `.woff2` files in [app/fonts/](app/fonts/), loaded with `next/font/local` in `app/layout.tsx` (no network needed at build time). `font-mono` (rank labels, records) and `font-logo` are system stacks in `globals.css`. There is no serif face; do not use `font-serif`.
 - Use the semantic palette tokens from `globals.css` (`bg-background`, `text-foreground`, `text-prose`, `text-muted-foreground`, `text-faint`, `border-border`, ...) rather than hex values. The token table is in the handoff README.
 - `body` already paints `bg-background`. Don't re-apply it per section.
 - Dark mode is class-based (`@custom-variant dark`): the `dark` class on `<html>`, toggled by a client component and persisted in `localStorage`.
@@ -65,11 +65,12 @@ Code in this repo follows the conventions below (shared with the design handoff 
 
 - **No semicolons** in `.ts`/`.tsx`; double quotes. Match the file you're editing.
 - `interface` for object shapes, `type` for unions; no enums — use string unions or `as const`.
-- React components: `const Name: FC<NameProps> = ({ ... }) => { ... }` with a named props `interface` (import `type FC` from `react`). Do not inline props types on the parameter. Pure helpers that do not return JSX stay as `function` declarations with explicit types.
-- Named exports for reusable UI; default export for page sections (`components/home.tsx`, etc.) and route files. Async Server Component routes stay `export default async function` — do not convert those to `FC`.
+- React components: `const Name: FC<NameProps> = ({ ... }) => { ... }` with a named props `interface` (import `type FC` from `react`). Do not inline props types on the parameter; declare `children` on the interface when accepted. Pure helpers that do not return JSX stay as `function` declarations with explicit types.
+- Named exports for reusable UI; default export for page sections (`components/home/*.tsx`) and route files. Async Server Component routes stay `export default async function` — do not convert those to `FC`.
 - Leave generated shadcn files in `components/ui/` as the CLI produced them (apart from the `cn` import fix above).
 - `@/*` path alias maps to the repo root (`@/components`, `@/lib`).
 - Route files stay thin; UI belongs in `@/components`.
+- Structured, repeatable records (titles, standings rows, the weekly story) are typed data in `lib/`. One-off section prose is written as JSX in the section component, not as string arrays in `lib/`.
 - Keep changes minimal and match existing patterns before introducing abstractions.
 - Do not install a new library to accomplish a feature without asking. Explore existing options first.
 

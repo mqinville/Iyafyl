@@ -5,20 +5,15 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Temporary system font stacks. The design calls for Geist, Geist Mono,
- * Instrument Serif, Newsreader and IBM Plex Sans Condensed (see the handoff
- * README). To restore them, load each with next/font in app/layout.tsx using
- * these same variable names and delete this block.
+ * Headings use Barlow Condensed (font-display) and everything else uses Inter
+ * (font-sans); both are self-hosted via next/font/local in app/layout.tsx,
+ * which sets --font-inter and --font-barlow-condensed on <html>. Mono (rank
+ * labels, records) and the logo still use system stacks.
  */
 :root {
-  --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Consolas,
+  --font-mono-stack: ui-monospace, SFMono-Regular, Menlo, Consolas,
     "Liberation Mono", monospace;
-  --font-instrument-serif: "Iowan Old Style", "Palatino Linotype", Palatino,
-    Georgia, serif;
-  --font-newsreader: ui-serif, Georgia, Cambria, "Times New Roman", serif;
-  --font-plex-condensed: "Avenir Next Condensed", "Arial Narrow",
+  --font-logo-stack: "Avenir Next Condensed", "Arial Narrow",
     "Roboto Condensed", sans-serif;
 }
 
@@ -58,11 +53,10 @@
   --color-stripe-a: var(--stripe-a);
   --color-stripe-b: var(--stripe-b);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-instrument-serif);
-  --font-serif: var(--font-newsreader);
-  --font-logo: var(--font-plex-condensed);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-stack);
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-logo: var(--font-logo-stack);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);

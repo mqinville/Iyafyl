@@ -20,7 +20,7 @@ const TitlesStrip: FC<TitlesStripProps> = ({ titles }) => {
         </div>
         <div className="flex flex-col gap-2">
           <span className={cn("text-brand-text", labelClass)}>Fantasy Guru</span>
-          <span className="font-display text-5xl leading-none">
+          <span className="font-display text-5xl leading-none font-semibold">
             {guru.manager}
           </span>
           <span className="text-muted-foreground text-[13px]">
@@ -37,10 +37,10 @@ const TitlesStrip: FC<TitlesStripProps> = ({ titles }) => {
         >
           King Sh*t
         </span>
-        <span className="font-display text-5xl leading-none">
+        <span className="font-display text-5xl leading-none font-semibold">
           {kingShit.manager}
         </span>
-        <span className="font-serif text-prose text-lg italic">
+        <span className="text-prose text-lg italic">
           {kingShit.punishment}
         </span>
       </div>

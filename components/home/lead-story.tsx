@@ -13,10 +13,10 @@ const LeadStory: FC<LeadStoryProps> = ({ week, season, headline, deck }) => {
       <span className="text-brand-text text-[11px] font-semibold tracking-[0.24em] uppercase">
         Week {week} · {season}
       </span>
-      <h1 className="font-display max-w-[980px] text-5xl leading-none font-normal tracking-[-0.015em] text-balance sm:text-7xl lg:text-[88px]">
+      <h1 className="font-display max-w-[980px] text-5xl leading-none font-semibold text-balance sm:text-7xl lg:text-[88px]">
         {headline}
       </h1>
-      <p className="font-serif text-prose max-w-[600px] text-xl leading-normal text-pretty">
+      <p className="text-prose max-w-[600px] text-xl leading-normal text-pretty">
         {deck}
       </p>
     </section>
