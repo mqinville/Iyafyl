@@ -18,7 +18,7 @@ export const MobileNav: FC = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-11 md:hidden">
+        <Button variant="ghost" size="icon" className="size-11 lg:hidden">
           <Menu />
           <span className="sr-only">Open menu</span>
         </Button>

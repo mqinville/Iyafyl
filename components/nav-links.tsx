@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type { FC } from "react"
+import { navLinkClass, navTextClass } from "@/lib/link-classes"
 import { navItems } from "@/lib/nav"
 import { cn } from "@/lib/utils"
 
@@ -24,7 +25,7 @@ export const NavLinks: FC<NavLinksProps> = ({
       aria-label="Main"
       className={cn(
         orientation === "horizontal"
-          ? "flex gap-[30px] text-[13px]"
+          ? cn("flex gap-[30px]", navTextClass)
           : "flex flex-col text-base",
         className
       )}
@@ -42,10 +43,7 @@ export const NavLinks: FC<NavLinksProps> = ({
             aria-current={active ? "page" : undefined}
             className={cn(
               orientation === "vertical" && "flex min-h-11 items-center",
-              "transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring",
-              active
-                ? "font-semibold text-foreground"
-                : "text-muted-foreground"
+              navLinkClass(active)
             )}
           >
             {item.label}

@@ -1,5 +1,7 @@
+import Image from "next/image"
 import Link from "next/link"
 import type { FC } from "react"
+import { SignInLink } from "@/components/auth/sign-in-link"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLinks } from "@/components/nav-links"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -10,17 +12,20 @@ export const SiteHeader: FC = () => {
       <Link
         href="/"
         aria-label="IYAFYL home"
-        className="inline-flex items-stretch rounded-[5px] font-logo text-[25px] leading-none font-bold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring dark:ring-1 dark:ring-rule-strong"
+        className="inline-flex focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
       >
-        <span className="rounded-l-[5px] bg-logo-ink pt-1.5 pr-1.5 pb-[5px] pl-2.5 text-logo-ink-foreground">
-          Iyaf
-        </span>
-        <span className="rounded-r-[5px] bg-brand pt-1.5 pr-2.5 pb-[5px] pl-1.5 text-brand-ink">
-          yl
-        </span>
+        <Image
+          src="/logo.svg"
+          alt=""
+          width={91}
+          height={36}
+          loading="eager"
+          className="h-[36px] w-[91px]"
+        />
       </Link>
       <div className="flex items-center gap-6">
-        <NavLinks className="hidden md:flex" />
+        <NavLinks className="hidden lg:flex" />
+        <SignInLink />
         <div className="flex items-center gap-1">
           <ThemeToggle />
           <MobileNav />
