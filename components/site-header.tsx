@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { FC } from "react"
+import { SignInLink } from "@/components/auth/sign-in-link"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLinks } from "@/components/nav-links"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -20,7 +21,8 @@ export const SiteHeader: FC = () => {
         </span>
       </Link>
       <div className="flex items-center gap-6">
-        <NavLinks className="hidden md:flex" />
+        <NavLinks className="hidden lg:flex" />
+        <SignInLink />
         <div className="flex items-center gap-1">
           <ThemeToggle />
           <MobileNav />
