@@ -12,7 +12,8 @@ import {
 } from "@/lib/auth"
 import { createClient } from "@/lib/supabase/server"
 
-const UNAVAILABLE_MESSAGE = "Accounts are unavailable right now. Try again later."
+const UNAVAILABLE_MESSAGE =
+  "Accounts are unavailable right now. Try again later."
 const GENERIC_MESSAGE = "Something went wrong. Try again in a moment."
 const RATE_LIMIT_MESSAGE = "Too many attempts. Wait a minute and try again."
 // Also used when the email already has an account, so the form never says whether it does.
@@ -30,7 +31,7 @@ function failure(message: string): AuthFormState {
 // Maps a Supabase auth error code (never the message) to form state.
 function mapAuthError(
   mode: AuthMode,
-  code: string | undefined
+  code: string | undefined,
 ): AuthFormState | null {
   switch (code) {
     case "over_email_send_rate_limit":
@@ -70,7 +71,7 @@ function mapAuthError(
 
 export async function authAction(
   _prev: AuthFormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<AuthFormState> {
   const mode: AuthMode =
     formData.get("mode") === "sign-up" ? "sign-up" : "sign-in"
@@ -84,13 +85,20 @@ export async function authAction(
   }
 
   const supabase = await createClient()
-  if (!supabase) return { ...failure(UNAVAILABLE_MESSAGE), email }
+  if (!supabase) {
+    return { ...failure(UNAVAILABLE_MESSAGE), email }
+  }
 
   if (mode === "sign-in") {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
     if (error) {
       const mapped = mapAuthError(mode, error.code)
-      if (mapped) return { ...mapped, email }
+      if (mapped) {
+        return { ...mapped, email }
+      }
       console.error("Supabase sign-in failed", error)
       return { ...failure(GENERIC_MESSAGE), email }
     }
@@ -98,7 +106,9 @@ export async function authAction(
     const { data, error } = await supabase.auth.signUp({ email, password })
     if (error) {
       const mapped = mapAuthError(mode, error.code)
-      if (mapped) return { ...mapped, email }
+      if (mapped) {
+        return { ...mapped, email }
+      }
       console.error("Supabase sign-up failed", error)
       return { ...failure(GENERIC_MESSAGE), email }
     }
@@ -117,7 +127,9 @@ export async function signOutAction(): Promise<void> {
   const supabase = await createClient()
   if (supabase) {
     const { error } = await supabase.auth.signOut()
-    if (error) console.error("Supabase sign-out failed", error)
+    if (error) {
+      console.error("Supabase sign-out failed", error)
+    }
   }
   revalidatePath("/", "layout")
   redirect(authRoutes.signIn)

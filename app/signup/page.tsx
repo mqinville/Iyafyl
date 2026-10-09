@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 }
 
 export default async function SignupPage() {
-  if (await getUserEmail()) redirect(authRoutes.home)
+  if (await getUserEmail()) {
+    redirect(authRoutes.home)
+  }
 
   return (
     <main id="main" className="gutter-x pt-20 pb-16">
@@ -31,7 +33,10 @@ export default async function SignupPage() {
             Already have an account?{" "}
             <Link
               href={authRoutes.signIn}
-              className={cn(brandLinkClass, "inline-flex min-h-11 items-center")}
+              className={cn(
+                brandLinkClass,
+                "inline-flex min-h-11 items-center",
+              )}
             >
               Sign in
             </Link>

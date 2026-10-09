@@ -18,14 +18,20 @@ export default function AuthErrorPage() {
         That link didn&apos;t work
       </h1>
       <p className="max-w-xl text-xl leading-normal text-balance text-muted-foreground">
-        The confirmation link is invalid or has expired. Try signing in, or
-        sign up again to get a new link.
+        The confirmation link is invalid or has expired. Try signing in, or sign
+        up again to get a new link.
       </p>
       <div className="flex items-center gap-6">
-        <Link href={authRoutes.signIn} className={cn(brandLinkClass, "text-sm")}>
+        <Link
+          href={authRoutes.signIn}
+          className={cn(brandLinkClass, "text-sm")}
+        >
           Sign in
         </Link>
-        <Link href={authRoutes.signUp} className={cn(brandLinkClass, "text-sm")}>
+        <Link
+          href={authRoutes.signUp}
+          className={cn(brandLinkClass, "text-sm")}
+        >
           Sign up
         </Link>
       </div>

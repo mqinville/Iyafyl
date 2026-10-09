@@ -10,12 +10,16 @@ Bun is the package manager and runner (`packageManager: bun@1.3.14`).
 
 ```bash
 bun install
-bun run dev      # next dev
-bun run build    # next build
-bun run lint     # eslint (flat config, eslint-config-next core-web-vitals + typescript)
-bun run typecheck  # tsc --noEmit; tsconfig is noEmit + incremental
-bun run db:types   # regenerate lib/supabase/database.types.ts from the local Supabase DB
+bun run dev            # next dev
+bun run build          # next build
+bun run lint           # eslint, then prettier --check
+bun run format         # prettier --write .
+bun run format:check   # prettier --check .
+bun run typecheck      # tsc --noEmit; tsconfig is noEmit + incremental
+bun run db:types       # regenerate lib/supabase/database.types.ts from the local Supabase DB
 ```
+
+`bun run lint` fails when ESLint rules or Prettier formatting are violated. Prettier uses print width 80, no semicolons, and double quotes (`printWidth: 80`, `semi: false`, `singleQuote: false`). Formatting skips `design_handoff_iyafyl_home`, generated shadcn files in `components/ui`, `lib/supabase/database.types.ts`, and `.env*` files.
 
 Supabase CLI loop (local stack needs Docker):
 
@@ -82,11 +86,13 @@ Tailwind v4 with **no `tailwind.config.js`** — the entire theme is `@theme inl
 
 Code in this repo follows the conventions below (shared with the design handoff README).
 
-- **No semicolons** in `.ts`/`.tsx`; double quotes. Match the file you're editing.
-- `interface` for object shapes, `type` for unions; no enums — use string unions or `as const`.
+- **Print width 80**, **no semicolons**, **double quotes**. Prettier enforces `printWidth: 80`, `semi: false`, and `singleQuote: false`.
+- **Braces** on every `if`, `else`, `for`, `while`, and `do` (`curly: ["error", "all"]`). The opening brace stays on the same line. Single-line `if (x) return` is rewritten as a braced block.
+- `interface` for object shapes. `type` for primitives, unions, intersections, tuples, and other non-object aliases (`@typescript-eslint/consistent-type-definitions`). No enums — use string unions or `as const`. Enums are a documented convention; there is no mechanical ban.
+- Prefer `const` when a binding is never reassigned (`prefer-const`).
 - React components: `const Name: FC<NameProps> = ({ ... }) => { ... }` with a named props `interface` (import `type FC` from `react`). Do not inline props types on the parameter; declare `children` on the interface when accepted. Pure helpers that do not return JSX stay as `function` declarations with explicit types.
+- Leave generated shadcn files in `components/ui/` as the CLI produced them (apart from the `cn` import fix above). Prettier skips that folder, and so do `curly` and `consistent-type-definitions`. `lib/supabase/database.types.ts` is excluded from Prettier and from those two rules. `prefer-const` still applies to both, because `eslint-config-next/typescript` already enables it.
 - Named exports for reusable UI; default export for page sections (`components/home/*.tsx`) and route files. Async Server Component routes stay `export default async function` — do not convert those to `FC`.
-- Leave generated shadcn files in `components/ui/` as the CLI produced them (apart from the `cn` import fix above).
 - `@/*` path alias maps to the repo root (`@/components`, `@/lib`).
 - A screen used by one route stays in that route file. Do not add a component whose only caller is `return <ThatComponent />`. Extract when the UI is reused or the page composes several sections.
 - Structured, repeatable records (titles, standings rows, the weekly story) are typed data in `lib/`. One-off section prose is written as JSX in the section component, not as string arrays in `lib/`.

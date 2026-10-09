@@ -12,7 +12,9 @@ import { getSupabaseEnv } from "@/lib/supabase/env"
 export function createAdminClient(): SupabaseClient<Database> | null {
   const env = getSupabaseEnv()
   const secretKey = process.env.SUPABASE_SECRET_KEY
-  if (!env || !secretKey) return null
+  if (!env || !secretKey) {
+    return null
+  }
 
   return createClient<Database>(env.url, secretKey, {
     auth: { persistSession: false, autoRefreshToken: false },

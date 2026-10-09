@@ -105,10 +105,7 @@ const FormField: FC<FormFieldProps> = ({
 
 type PasswordInputProps = Omit<ComponentProps<typeof Input>, "type">
 
-const PasswordInput: FC<PasswordInputProps> = ({
-  className,
-  ...props
-}) => {
+const PasswordInput: FC<PasswordInputProps> = ({ className, ...props }) => {
   const [visible, setVisible] = useState(false)
 
   return (
@@ -140,7 +137,7 @@ export const AuthForm: FC<AuthFormProps> = ({ mode, next }) => {
   const copy = authCopy[mode]
   const [state, formAction, isPending] = useActionState(
     authAction,
-    initialAuthFormState
+    initialAuthFormState,
   )
   // Errors and the notice the user has edited away since the last result.
   const [dismissed, setDismissed] = useState<Dismissed>({})
@@ -158,12 +155,14 @@ export const AuthForm: FC<AuthFormProps> = ({ mode, next }) => {
   }
 
   const fieldRefs = useRef<Partial<Record<FieldName, HTMLInputElement | null>>>(
-    {}
+    {},
   )
 
   useEffect(() => {
     const first = FIELD_ORDER.find((name) => state.errors[name])
-    if (first) fieldRefs.current[first]?.focus()
+    if (first) {
+      fieldRefs.current[first]?.focus()
+    }
   }, [state])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -173,7 +172,7 @@ export const AuthForm: FC<AuthFormProps> = ({ mode, next }) => {
       mode,
       field("email").trim(),
       field("password"),
-      field("confirm")
+      field("confirm"),
     )
     const first = FIELD_ORDER.find((name) => errors[name])
     if (!first) {
@@ -233,7 +232,7 @@ export const AuthForm: FC<AuthFormProps> = ({ mode, next }) => {
               href={authRoutes.forgotPassword}
               className={cn(
                 brandLinkClass,
-                "-my-3 inline-flex min-h-11 items-center text-sm"
+                "-my-3 inline-flex min-h-11 items-center text-sm",
               )}
             >
               Forgot password?

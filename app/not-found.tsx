@@ -17,10 +17,7 @@ export default function NotFound() {
       <p className="text-xl leading-normal text-muted-foreground">
         That page is out of bounds.
       </p>
-      <Link
-        href="/"
-        className={cn(brandLinkClass, "text-sm")}
-      >
+      <Link href="/" className={cn(brandLinkClass, "text-sm")}>
         Back home →
       </Link>
     </main>

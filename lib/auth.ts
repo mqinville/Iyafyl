@@ -41,11 +41,15 @@ export function isPublicPath(pathname: string): boolean {
 // "//host", "/\host" or "/%09/host" can't point elsewhere. Auth pages map to home
 // so a post-sign-in redirect can't loop.
 export function safeNext(value: string | null | undefined): string {
-  if (!value) return authRoutes.home
+  if (!value) {
+    return authRoutes.home
+  }
   const base = "http://localhost"
   try {
     const url = new URL(value, base)
-    if (url.origin !== base || isPublicPath(url.pathname)) return authRoutes.home
+    if (url.origin !== base || isPublicPath(url.pathname)) {
+      return authRoutes.home
+    }
     return url.pathname + url.search
   } catch {
     return authRoutes.home
@@ -95,7 +99,7 @@ export function validate(
   mode: AuthMode,
   email: string,
   password: string,
-  confirm: string
+  confirm: string,
 ): FieldErrors {
   const errors: FieldErrors = {}
   if (!EMAIL_PATTERN.test(email)) {

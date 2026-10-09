@@ -18,7 +18,9 @@ export default async function LoginPage({
 }) {
   const { next: rawNext } = await searchParams
   const next = safeNext(Array.isArray(rawNext) ? rawNext[0] : rawNext)
-  if (await getUserEmail()) redirect(next)
+  if (await getUserEmail()) {
+    redirect(next)
+  }
 
   return (
     <main id="main" className="gutter-x pt-20 pb-16">
@@ -40,7 +42,10 @@ export default async function LoginPage({
             New to the league?{" "}
             <Link
               href={authRoutes.signUp}
-              className={cn(brandLinkClass, "inline-flex min-h-11 items-center")}
+              className={cn(
+                brandLinkClass,
+                "inline-flex min-h-11 items-center",
+              )}
             >
               Create an account
             </Link>

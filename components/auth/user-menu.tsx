@@ -15,7 +15,7 @@ export const UserMenu: FC<UserMenuProps> = ({ email }) => {
         title={email}
         className={cn(
           "hidden max-w-40 truncate text-muted-foreground sm:inline",
-          navTextClass
+          navTextClass,
         )}
       >
         {email}
