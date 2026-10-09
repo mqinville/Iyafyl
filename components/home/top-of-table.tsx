@@ -19,7 +19,9 @@ const TopOfTable: FC<TopOfTableProps> = ({ home }) => {
   return (
     <section className="gutter-mx mb-14 pt-7">
       <div className="mb-2.5 flex items-baseline justify-between">
-        <h2 className="font-display text-[28px] leading-none font-semibold">Top of the table</h2>
+        <h2 className="font-display text-[28px] leading-none font-semibold">
+          Top of the table
+        </h2>
         {home.source !== "sleeper-unavailable" ? (
           <Link
             href="/standings"

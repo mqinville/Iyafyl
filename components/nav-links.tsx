@@ -26,14 +26,12 @@ export const NavLinks: FC<NavLinksProps> = ({
         orientation === "horizontal"
           ? "flex gap-[30px] text-[13px]"
           : "flex flex-col text-base",
-        className
+        className,
       )}
     >
       {navItems.map((item) => {
         const active =
-          item.href === "/"
-            ? pathname === "/"
-            : pathname.startsWith(item.href)
+          item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
         return (
           <Link
             key={item.href}
@@ -45,7 +43,7 @@ export const NavLinks: FC<NavLinksProps> = ({
               "transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring",
               active
                 ? "font-semibold text-foreground"
-                : "text-muted-foreground"
+                : "text-muted-foreground",
             )}
           >
             {item.label}

@@ -10,7 +10,9 @@ import { getSupabaseEnv } from "@/lib/supabase/env"
 /** Cookie-aware Supabase client for Server Components, actions and route handlers. Null when env is unset. */
 export async function createClient(): Promise<SupabaseClient<Database> | null> {
   const env = getSupabaseEnv()
-  if (!env) return null
+  if (!env) {
+    return null
+  }
 
   const cookieStore = await cookies()
 
@@ -22,7 +24,7 @@ export async function createClient(): Promise<SupabaseClient<Database> | null> {
       setAll(cookiesToSet) {
         try {
           cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
+            cookieStore.set(name, value, options),
           )
         } catch {
           // Called from a Server Component; the proxy refreshes the session.

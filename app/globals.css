@@ -11,10 +11,10 @@
  * labels, records) and the logo still use system stacks.
  */
 :root {
-  --font-mono-stack: ui-monospace, SFMono-Regular, Menlo, Consolas,
-    "Liberation Mono", monospace;
-  --font-logo-stack: "Avenir Next Condensed", "Arial Narrow",
-    "Roboto Condensed", sans-serif;
+  --font-mono-stack:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font-logo-stack:
+    "Avenir Next Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
 }
 
 @theme inline {

@@ -5,11 +5,15 @@ import type { Database } from "@/lib/supabase/database.types"
 import { getSupabaseEnv } from "@/lib/supabase/env"
 
 /** Refreshes the Supabase auth cookie on each request. No-op when env is unset. */
-export async function updateSession(request: NextRequest): Promise<NextResponse> {
+export async function updateSession(
+  request: NextRequest,
+): Promise<NextResponse> {
   let response = NextResponse.next({ request })
 
   const env = getSupabaseEnv()
-  if (!env) return response
+  if (!env) {
+    return response
+  }
 
   const supabase = createServerClient<Database>(env.url, env.publishableKey, {
     cookies: {
@@ -17,14 +21,16 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
         return request.cookies.getAll()
       },
       setAll(cookiesToSet, headers) {
-        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        cookiesToSet.forEach(({ name, value }) =>
+          request.cookies.set(name, value),
+        )
         response = NextResponse.next({ request })
         cookiesToSet.forEach(({ name, value, options }) =>
-          response.cookies.set(name, value, options)
+          response.cookies.set(name, value, options),
         )
         // Cache headers keep a CDN from caching a Set-Cookie response and leaking a session.
         Object.entries(headers).forEach(([key, value]) =>
-          response.headers.set(key, value)
+          response.headers.set(key, value),
         )
       },
     },
