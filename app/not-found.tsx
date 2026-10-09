@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { brandLinkClass } from "@/lib/link-classes"
+import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = { title: "Page not found" }
 
@@ -17,7 +19,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="text-brand-text focus-visible:outline-ring text-sm font-semibold transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4"
+        className={cn(brandLinkClass, "text-sm")}
       >
         Back home →
       </Link>
