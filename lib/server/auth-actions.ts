@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import {
   authRoutes,
+  safeNext,
   validate,
   type AuthFormState,
   type AuthMode,
@@ -109,7 +110,7 @@ export async function authAction(
   }
 
   revalidatePath("/", "layout")
-  redirect(authRoutes.home)
+  redirect(safeNext(String(formData.get("next") ?? "")))
 }
 
 export async function signOutAction(): Promise<void> {
@@ -119,5 +120,5 @@ export async function signOutAction(): Promise<void> {
     if (error) console.error("Supabase sign-out failed", error)
   }
   revalidatePath("/", "layout")
-  redirect(authRoutes.home)
+  redirect(authRoutes.signIn)
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { AuthForm } from "@/components/auth/auth-form"
-import { authRoutes } from "@/lib/auth"
+import { authRoutes, safeNext } from "@/lib/auth"
 import { brandLinkClass } from "@/lib/link-classes"
 import { getUserEmail } from "@/lib/server/auth-session"
 import { cn } from "@/lib/utils"
@@ -11,8 +11,14 @@ export const metadata: Metadata = {
   title: "Sign in",
 }
 
-export default async function LoginPage() {
-  if (await getUserEmail()) redirect(authRoutes.home)
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string | string[] }>
+}) {
+  const { next: rawNext } = await searchParams
+  const next = safeNext(Array.isArray(rawNext) ? rawNext[0] : rawNext)
+  if (await getUserEmail()) redirect(next)
 
   return (
     <main id="main" className="gutter-x pt-20 pb-16">
@@ -26,7 +32,10 @@ export default async function LoginPage() {
           </p>
         </div>
         <div className="flex w-full max-w-sm flex-col gap-8">
-          <AuthForm mode="sign-in" />
+          <AuthForm
+            mode="sign-in"
+            next={next === authRoutes.home ? undefined : next}
+          />
           <p className="border-t border-rule pt-4 text-center text-sm text-muted-foreground">
             New to the league?{" "}
             <Link

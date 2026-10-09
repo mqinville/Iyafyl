@@ -34,6 +34,7 @@ import {
 
 interface AuthFormProps {
   mode: AuthMode
+  next?: string
 }
 
 type Dismissed = Partial<Record<FieldName | "notice", true>>
@@ -134,7 +135,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
   )
 }
 
-export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
+export const AuthForm: FC<AuthFormProps> = ({ mode, next }) => {
   const isSignUp = mode === "sign-up"
   const copy = authCopy[mode]
   const [state, formAction, isPending] = useActionState(
@@ -201,6 +202,7 @@ export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
       className="flex flex-col gap-5"
     >
       <input type="hidden" name="mode" value={mode} />
+      {next ? <input type="hidden" name="next" value={next} /> : null}
 
       <FormField label="Email" error={errorFor("email")}>
         {(control) => (

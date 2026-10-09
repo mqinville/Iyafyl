@@ -21,6 +21,37 @@ export const authRoutes = {
   home: "/",
 } as const
 
+const PUBLIC_PATHS: readonly string[] = [
+  authRoutes.signIn,
+  authRoutes.signUp,
+  authRoutes.forgotPassword,
+]
+
+// Pages reachable while signed out: the auth pages and everything under /auth.
+// /auth is matched by segment, so /authors is not public.
+export function isPublicPath(pathname: string): boolean {
+  return (
+    PUBLIC_PATHS.includes(pathname) ||
+    pathname === "/auth" ||
+    pathname.startsWith("/auth/")
+  )
+}
+
+// Same-origin path only: resolve against a fixed base and compare, so tricks like
+// "//host", "/\host" or "/%09/host" can't point elsewhere. Auth pages map to home
+// so a post-sign-in redirect can't loop.
+export function safeNext(value: string | null | undefined): string {
+  if (!value) return authRoutes.home
+  const base = "http://localhost"
+  try {
+    const url = new URL(value, base)
+    if (url.origin !== base || isPublicPath(url.pathname)) return authRoutes.home
+    return url.pathname + url.search
+  } catch {
+    return authRoutes.home
+  }
+}
+
 export interface AuthFormState {
   status: "idle" | "error" | "success"
   errors: FieldErrors
