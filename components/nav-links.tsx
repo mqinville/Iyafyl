@@ -27,14 +27,12 @@ export const NavLinks: FC<NavLinksProps> = ({
         orientation === "horizontal"
           ? cn("flex gap-[30px]", navTextClass)
           : "flex flex-col text-base",
-        className
+        className,
       )}
     >
       {navItems.map((item) => {
         const active =
-          item.href === "/"
-            ? pathname === "/"
-            : pathname.startsWith(item.href)
+          item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
         return (
           <Link
             key={item.href}
@@ -43,7 +41,7 @@ export const NavLinks: FC<NavLinksProps> = ({
             aria-current={active ? "page" : undefined}
             className={cn(
               orientation === "vertical" && "flex min-h-11 items-center",
-              navLinkClass(active)
+              navLinkClass(active),
             )}
           >
             {item.label}

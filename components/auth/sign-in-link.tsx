@@ -24,7 +24,7 @@ export const SignInLink: FC = () => {
       className={cn(
         "-my-3 inline-flex min-h-11 items-center",
         navTextClass,
-        navLinkClass(active)
+        navLinkClass(active),
       )}
     >
       Sign in

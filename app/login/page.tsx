@@ -1,16 +1,27 @@
-import { Info } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { AuthForm } from "@/components/auth/auth-form"
-import { authPreviewNote, authRoutes } from "@/lib/auth"
+import { authRoutes, safeNext } from "@/lib/auth"
 import { brandLinkClass } from "@/lib/link-classes"
+import { getUserEmail } from "@/lib/server/auth-session"
 import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Sign in",
 }
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string | string[] }>
+}) {
+  const { next: rawNext } = await searchParams
+  const next = safeNext(Array.isArray(rawNext) ? rawNext[0] : rawNext)
+  if (await getUserEmail()) {
+    redirect(next)
+  }
+
   return (
     <main id="main" className="gutter-x pt-20 pb-16">
       <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-8">
@@ -21,21 +32,20 @@ export default function LoginPage() {
           <p className="text-lg leading-normal text-balance text-muted-foreground">
             Welcome back to the league.
           </p>
-          <p className="text-sm text-balance text-muted-foreground">
-            <Info
-              className="mr-1.5 inline size-4 align-[-0.25em]"
-              aria-hidden="true"
-            />
-            {authPreviewNote}
-          </p>
         </div>
         <div className="flex w-full max-w-sm flex-col gap-8">
-          <AuthForm mode="sign-in" />
+          <AuthForm
+            mode="sign-in"
+            next={next === authRoutes.home ? undefined : next}
+          />
           <p className="border-t border-rule pt-4 text-center text-sm text-muted-foreground">
             New to the league?{" "}
             <Link
               href={authRoutes.signUp}
-              className={cn(brandLinkClass, "inline-flex min-h-11 items-center")}
+              className={cn(
+                brandLinkClass,
+                "inline-flex min-h-11 items-center",
+              )}
             >
               Create an account
             </Link>

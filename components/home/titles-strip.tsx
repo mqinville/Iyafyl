@@ -19,7 +19,9 @@ const TitlesStrip: FC<TitlesStripProps> = ({ titles }) => {
           3D trophy
         </div>
         <div className="flex flex-col gap-2">
-          <span className={cn("text-brand-text", labelClass)}>Fantasy Guru</span>
+          <span className={cn("text-brand-text", labelClass)}>
+            Fantasy Guru
+          </span>
           <span className="font-display text-5xl leading-none font-semibold">
             {guru.manager}
           </span>
@@ -32,7 +34,7 @@ const TitlesStrip: FC<TitlesStripProps> = ({ titles }) => {
         <span
           className={cn(
             "text-foreground dark:text-muted-foreground",
-            labelClass
+            labelClass,
           )}
         >
           King Sh*t
@@ -40,9 +42,7 @@ const TitlesStrip: FC<TitlesStripProps> = ({ titles }) => {
         <span className="font-display text-5xl leading-none font-semibold">
           {kingShit.manager}
         </span>
-        <span className="text-prose text-lg italic">
-          {kingShit.punishment}
-        </span>
+        <span className="text-prose text-lg italic">{kingShit.punishment}</span>
       </div>
     </section>
   )

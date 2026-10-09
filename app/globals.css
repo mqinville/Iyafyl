@@ -11,8 +11,8 @@
  * labels, records) still uses a system stack.
  */
 :root {
-  --font-mono-stack: ui-monospace, SFMono-Regular, Menlo, Consolas,
-    "Liberation Mono", monospace;
+  --font-mono-stack:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 @theme inline {

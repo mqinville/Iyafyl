@@ -1,0 +1,1 @@
+-- Local-only seed data, run by `supabase db reset`. Not applied to the hosted project.

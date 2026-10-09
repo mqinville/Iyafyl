@@ -10,7 +10,11 @@ import "./globals.css"
 // Self-hosted (latin subset, from Google Fonts) so builds never hit the network
 const inter = localFont({
   src: [
-    { path: "./fonts/Inter-Variable.woff2", weight: "100 900", style: "normal" },
+    {
+      path: "./fonts/Inter-Variable.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
     {
       path: "./fonts/Inter-Italic-Variable.woff2",
       weight: "100 900",
@@ -32,7 +36,10 @@ const barlowCondensed = localFont({
 })
 
 export const metadata: Metadata = {
-  title: { default: "IYAFYL · Fantasy football league", template: "%s | IYAFYL" },
+  title: {
+    default: "IYAFYL · Fantasy football league",
+    template: "%s | IYAFYL",
+  },
   description:
     "If Ya Ain't First, You're Last: a 12-team full-PPR redraft league since 2019.",
 }
