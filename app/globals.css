@@ -8,13 +8,11 @@
  * Headings use Barlow Condensed (font-display) and everything else uses Inter
  * (font-sans); both are self-hosted via next/font/local in app/layout.tsx,
  * which sets --font-inter and --font-barlow-condensed on <html>. Mono (rank
- * labels, records) and the logo still use system stacks.
+ * labels, records) still uses a system stack.
  */
 :root {
   --font-mono-stack: ui-monospace, SFMono-Regular, Menlo, Consolas,
     "Liberation Mono", monospace;
-  --font-logo-stack: "Avenir Next Condensed", "Arial Narrow",
-    "Roboto Condensed", sans-serif;
 }
 
 @theme inline {
@@ -46,17 +44,12 @@
   --color-rule-double: var(--rule-double);
   --color-brand: var(--brand);
   --color-brand-text: var(--brand-text);
-  /* The logo is intentionally theme-invariant: these do not change in dark mode */
-  --color-logo-ink: #1c1c1e;
-  --color-logo-ink-foreground: #ffffff;
-  --color-brand-ink: #111111;
   --color-stripe-a: var(--stripe-a);
   --color-stripe-b: var(--stripe-b);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-stack);
   --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
-  --font-logo: var(--font-logo-stack);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
