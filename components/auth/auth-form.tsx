@@ -1,20 +1,22 @@
 "use client"
 
-import { Info } from "lucide-react"
+import { Eye, EyeOff, Info } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import {
   useActionState,
   useEffect,
+  useId,
   useRef,
   useState,
   type ChangeEvent,
+  type ComponentProps,
   type FC,
+  type ReactNode,
 } from "react"
-import { FormField } from "@/components/auth/form-field"
-import { PasswordInput } from "@/components/auth/password-input"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { brandLinkClass } from "@/lib/link-classes"
 import { cn } from "@/lib/utils"
 import {
@@ -37,6 +39,99 @@ type Dismissed = Partial<Record<FieldName | "notice", true>>
 
 // 16px text (no iOS focus zoom) and a 44px tap height.
 const controlClass = "h-11 text-base md:text-base"
+
+interface FormFieldControlProps {
+  id: string
+  "aria-invalid": true | undefined
+  "aria-describedby": string | undefined
+}
+
+interface FormFieldProps {
+  label: string
+  error?: string
+  hint?: string
+  labelAccessory?: ReactNode
+  children: (control: FormFieldControlProps) => ReactNode
+}
+
+const FormField: FC<FormFieldProps> = ({
+  label,
+  error,
+  hint,
+  labelAccessory,
+  children,
+}) => {
+  const id = useId()
+  const errorId = `${id}-error`
+  const hintId = `${id}-hint`
+  // The error replaces the hint so the two never stack.
+  const showHint = Boolean(hint) && !error
+  const describedBy = [error ? errorId : null, showHint ? hintId : null]
+    .filter((value): value is string => value !== null)
+    .join(" ")
+
+  // The accessory sits after the control in the DOM (so Tab reaches the input
+  // first) and is placed beside the label with grid areas.
+  return (
+    <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2">
+      <Label htmlFor={id} className="col-start-1 row-start-1">
+        {label}
+      </Label>
+      <div className="col-span-2 row-start-2">
+        {children({
+          id,
+          "aria-invalid": error ? true : undefined,
+          "aria-describedby": describedBy || undefined,
+        })}
+      </div>
+      {labelAccessory ? (
+        <div className="col-start-2 row-start-1">{labelAccessory}</div>
+      ) : null}
+      {error ? (
+        <p id={errorId} className="col-span-2 text-sm text-destructive">
+          {error}
+        </p>
+      ) : null}
+      {showHint ? (
+        <p id={hintId} className="col-span-2 text-sm text-faint">
+          {hint}
+        </p>
+      ) : null}
+    </div>
+  )
+}
+
+type PasswordInputProps = Omit<ComponentProps<typeof Input>, "type">
+
+const PasswordInput: FC<PasswordInputProps> = ({
+  className,
+  ...props
+}) => {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <div className="relative">
+      <Input
+        {...props}
+        type={visible ? "text" : "password"}
+        className={cn("pr-11", className)}
+      />
+      <button
+        type="button"
+        aria-label={visible ? "Hide password" : "Show password"}
+        aria-pressed={visible}
+        onClick={() => setVisible((value) => !value)}
+        className="absolute top-0 right-0 inline-flex size-11 items-center justify-center rounded-md text-muted-foreground transition-opacity outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-ring/50"
+      >
+        {visible ? (
+          <EyeOff className="size-4" aria-hidden="true" />
+        ) : (
+          <Eye className="size-4" aria-hidden="true" />
+        )}
+      </button>
+    </div>
+  )
+}
 
 export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
   const isSignUp = mode === "sign-up"

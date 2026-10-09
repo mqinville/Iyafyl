@@ -1,4 +1,4 @@
-// Auth contract shared by the pages, the form and (later) a real backend.
+// Auth contract shared by the form and (later) a real backend.
 // Keep this module free of "use client" and server-only imports.
 
 export type AuthMode = "sign-in" | "sign-up"
@@ -37,33 +37,18 @@ export const initialAuthFormState: AuthFormState = {
 }
 
 interface AuthCopy {
-  title: string
-  subline: string
   submitLabel: string
   pendingLabel: string
-  switchPrompt: string
-  switchLabel: string
-  switchHref: string
 }
 
 export const authCopy: Record<AuthMode, AuthCopy> = {
   "sign-in": {
-    title: "Sign in",
-    subline: "Welcome back to the league.",
     submitLabel: "Sign in",
     pendingLabel: "Signing in…",
-    switchPrompt: "New to the league?",
-    switchLabel: "Create an account",
-    switchHref: authRoutes.signUp,
   },
   "sign-up": {
-    title: "Create account",
-    subline: "Join the league with an email and password.",
     submitLabel: "Create account",
     pendingLabel: "Creating account…",
-    switchPrompt: "Already have an account?",
-    switchLabel: "Sign in",
-    switchHref: authRoutes.signIn,
   },
 }
 
