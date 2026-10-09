@@ -2,14 +2,13 @@
 
 import { Eye, EyeOff, Info } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import {
   useActionState,
   useEffect,
   useId,
   useRef,
   useState,
-  type ChangeEvent,
+  type FormEvent,
   type ComponentProps,
   type FC,
   type ReactNode,
@@ -17,17 +16,19 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { authAction } from "@/lib/server/auth-actions"
 import { brandLinkClass } from "@/lib/link-classes"
 import { cn } from "@/lib/utils"
 import {
   FIELD_ORDER,
   fieldMessages,
   MIN_PASSWORD_LENGTH,
-  authAction,
   authCopy,
   authRoutes,
   initialAuthFormState,
+  validate,
   type AuthMode,
+  type FieldErrors,
   type FieldName,
 } from "@/lib/auth"
 
@@ -136,24 +137,23 @@ const PasswordInput: FC<PasswordInputProps> = ({
 export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
   const isSignUp = mode === "sign-up"
   const copy = authCopy[mode]
-  const router = useRouter()
   const [state, formAction, isPending] = useActionState(
     authAction,
     initialAuthFormState
   )
-  // Controlled values: React resets uncontrolled fields after an action.
-  const [values, setValues] = useState<Record<FieldName, string>>({
-    email: "",
-    password: "",
-    confirm: "",
-  })
   // Errors and the notice the user has edited away since the last result.
   const [dismissed, setDismissed] = useState<Dismissed>({})
+  // Errors from client-side validation; they replace the server's until the next result.
+  const [clientErrors, setClientErrors] = useState<FieldErrors | null>(null)
   const [seenState, setSeenState] = useState(state)
+  // Changes per result so the email input re-applies its defaultValue.
+  const [resultKey, setResultKey] = useState(0)
   if (seenState !== state) {
     // New action result: show its errors and notice again.
     setSeenState(state)
     setDismissed({})
+    setClientErrors(null)
+    setResultKey((current) => current + 1)
   }
 
   const fieldRefs = useRef<Partial<Record<FieldName, HTMLInputElement | null>>>(
@@ -161,27 +161,45 @@ export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
   )
 
   useEffect(() => {
-    if (state.status === "success") {
-      router.push(authRoutes.home)
-      return
-    }
     const first = FIELD_ORDER.find((name) => state.errors[name])
     if (first) fieldRefs.current[first]?.focus()
-  }, [state, router])
+  }, [state])
 
-  const handleChange =
-    (name: FieldName) => (event: ChangeEvent<HTMLInputElement>) => {
-      const { value } = event.target
-      setValues((current) => ({ ...current, [name]: value }))
-      setDismissed((current) => ({ ...current, [name]: true, notice: true }))
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const data = new FormData(event.currentTarget)
+    const field = (name: FieldName) => String(data.get(name) ?? "")
+    const errors = validate(
+      mode,
+      field("email").trim(),
+      field("password"),
+      field("confirm")
+    )
+    const first = FIELD_ORDER.find((name) => errors[name])
+    if (!first) {
+      setClientErrors(null)
+      return
     }
+    event.preventDefault()
+    setClientErrors(errors)
+    setDismissed({})
+    fieldRefs.current[first]?.focus()
+  }
+
+  const handleChange = (name: FieldName) => () => {
+    setDismissed((current) => ({ ...current, [name]: true, notice: true }))
+  }
 
   const errorFor = (name: FieldName) =>
-    dismissed[name] ? undefined : state.errors[name]
-  const notice = dismissed.notice ? "" : state.message
+    dismissed[name] ? undefined : (clientErrors ?? state.errors)[name]
+  const notice = dismissed.notice || clientErrors ? "" : state.message
 
   return (
-    <form noValidate action={formAction} className="flex flex-col gap-5">
+    <form
+      noValidate
+      action={formAction}
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-5"
+    >
       <input type="hidden" name="mode" value={mode} />
 
       <FormField label="Email" error={errorFor("email")}>
@@ -195,7 +213,8 @@ export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
             type="email"
             autoComplete="email"
             required
-            value={values.email}
+            key={resultKey}
+            defaultValue={state.email ?? ""}
             onChange={handleChange("email")}
             className={controlClass}
           />
@@ -230,7 +249,6 @@ export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
             autoComplete={isSignUp ? "new-password" : "current-password"}
             required
             minLength={isSignUp ? MIN_PASSWORD_LENGTH : undefined}
-            value={values.password}
             onChange={handleChange("password")}
             className={controlClass}
           />
@@ -248,7 +266,6 @@ export const AuthForm: FC<AuthFormProps> = ({ mode }) => {
               name={"confirm" satisfies FieldName}
               autoComplete="new-password"
               required
-              value={values.confirm}
               onChange={handleChange("confirm")}
               className={controlClass}
             />

@@ -14,3 +14,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Dev server: `bun run dev -- --hostname 0.0.0.0 --port 3000`.
 - Checks: `bun run lint`, `bun run typecheck`, and `bun run build`. There is no test suite. `next build` uses Turbopack and needs local port binding; if that fails, use `bun x next build --webpack`.
 - `LEAGUE_ID` is optional. With it unset, `/` shows sample standings and the note "Sample data". Live standings need `LEAGUE_ID` in gitignored `.env.local`. Sleeper (`api.sleeper.app`) is a public API and needs no auth.
+
+## Backend
+
+Supabase is the single backend provider: when a feature needs a backend service (auth, database, storage, scheduled jobs, edge functions, email), use Supabase's offering before adding another provider or library.
