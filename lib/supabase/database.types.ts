@@ -300,7 +300,17 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      normalize_player_name: { Args: { name: string }; Returns: string }
+      search_players: {
+        Args: { lim?: number; q: string }
+        Returns: {
+          active: boolean
+          full_name: string
+          player_id: string
+          position: string
+          team: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

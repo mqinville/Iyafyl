@@ -39,6 +39,21 @@ export interface SleeperUser {
   metadata?: { team_name?: string } | null
 }
 
+// One row of the header player search (GET /api/players/search).
+export interface PlayerSearchResult {
+  id: string
+  name: string
+  position: string | null
+  team: string | null
+  active: boolean
+  // Sleeper CDN headshot (team logo for defenses); may 403 when missing.
+  imageUrl: string
+}
+
+export interface PlayerSearchResponse {
+  results: PlayerSearchResult[]
+}
+
 export type HomeData =
   | { source: "placeholder"; standings: StandingRow[]; totalTeams: number }
   | { source: "sleeper"; standings: StandingRow[]; totalTeams: number }
