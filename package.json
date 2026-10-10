@@ -10,6 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
+    "data:player": "bun --conditions=react-server data/player/script/index.ts",
     "db:types": "supabase gen types typescript --local > lib/supabase/database.types.ts.tmp && mv lib/supabase/database.types.ts.tmp lib/supabase/database.types.ts"
   },
   "dependencies": {
