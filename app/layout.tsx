@@ -3,6 +3,7 @@ import localFont from "next/font/local"
 import type { FC, ReactNode } from "react"
 import { SiteHeader } from "@/components/site-header"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { sessionHashScript } from "@/lib/auth"
 import { themeScript } from "@/lib/theme"
 import { cn } from "@/lib/utils"
 import "./globals.css"
@@ -57,6 +58,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: sessionHashScript }} />
       </head>
       <body>
         <a

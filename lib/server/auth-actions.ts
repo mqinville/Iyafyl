@@ -1,6 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
+import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import {
   authRoutes,
@@ -22,6 +23,27 @@ const CHECK_EMAIL_MESSAGE =
 
 function readField(formData: FormData, name: FieldName): string {
   return String(formData.get(name) ?? "")
+}
+
+// Absolute URL for the confirmation email's redirect_to. Supabase ignores it
+// unless the hosted redirect allow-list contains this origin. A bad host is
+// dropped so the project Site URL is used instead.
+function requestOrigin(headerStore: Headers): string | null {
+  const rawHost =
+    headerStore.get("x-forwarded-host") ?? headerStore.get("host") ?? ""
+  const host = rawHost.split(",")[0]?.trim() ?? ""
+  if (!/^[a-z0-9.-]+(?::\d{1,5})?$/i.test(host)) {
+    return null
+  }
+  const forwarded = headerStore.get("x-forwarded-proto")?.split(",")[0]?.trim()
+  if (forwarded === "http" || forwarded === "https") {
+    return `${forwarded}://${host}`
+  }
+  const proto =
+    host.startsWith("localhost") || host.startsWith("127.0.0.1")
+      ? "http"
+      : "https"
+  return `${proto}://${host}`
 }
 
 function failure(message: string): AuthFormState {
@@ -103,7 +125,15 @@ export async function authAction(
       return { ...failure(GENERIC_MESSAGE), email }
     }
   } else {
-    const { data, error } = await supabase.auth.signUp({ email, password })
+    const origin = requestOrigin(await headers())
+    const emailRedirectTo = origin
+      ? `${origin}${authRoutes.callback}`
+      : undefined
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: emailRedirectTo ? { emailRedirectTo } : undefined,
+    })
     if (error) {
       const mapped = mapAuthError(mode, error.code)
       if (mapped) {

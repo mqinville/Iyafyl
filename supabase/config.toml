@@ -159,6 +159,9 @@ site_url = "http://localhost:3000"
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
 # external_url = ""
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
+# The /** wildcard covers /auth/callback (signup emailRedirectTo) and /auth/confirm.
+# Hosted projects do not read this file until `supabase config push`. Set Site URL
+# to the production origin with no path, and allow https://<production-host>/**.
 additional_redirect_urls = ["http://localhost:3000/**", "http://127.0.0.1:3000/**"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
@@ -244,6 +247,9 @@ otp_expiry = 3600
 # admin_email = "admin@email.com"
 # sender_name = "Admin"
 
+# Confirm signup stays required (enable_confirmations above). The hosted
+# "Confirm signup" template must match supabase/templates/confirmation.html:
+# a direct /auth/confirm?token_hash=…&type=email link, not {{ .ConfirmationURL }}.
 [auth.email.template.confirmation]
 subject = "Confirm your email address"
 content_path = "./supabase/templates/confirmation.html"
