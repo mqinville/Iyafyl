@@ -24,7 +24,7 @@ const TopOfTable: FC<TopOfTableProps> = ({ home }) => {
         </h2>
         {home.source !== "sleeper-unavailable" ? (
           <Link
-            href="/standings"
+            href="/teams#standings"
             className="text-brand-text focus-visible:outline-ring -my-3 inline-flex min-h-11 items-center text-xs font-semibold transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4"
           >
             All {home.totalTeams} teams →
