@@ -18,6 +18,8 @@ export const authRoutes = {
   signUp: "/signup",
   forgotPassword: "/forgot-password",
   authError: "/auth/error",
+  confirm: "/auth/confirm",
+  callback: "/auth/callback",
   home: "/",
 } as const
 
@@ -54,6 +56,19 @@ export function safeNext(value: string | null | undefined): string {
   } catch {
     return authRoutes.home
   }
+}
+
+// Runs in <head> on rendered pages. The default confirmation link puts the
+// session in the URL hash, which a server redirect would drop.
+export const sessionHashScript = `(function(){try{if(location.pathname===${JSON.stringify(authRoutes.callback)})return;var h=location.hash;if(h.indexOf("access_token=")===-1||h.indexOf("refresh_token=")===-1)return;location.replace(${JSON.stringify(authRoutes.callback)}+h)}catch(e){}})()`
+
+// Signed-out document loads of `/` cannot 307 to /login: that drops the hash.
+// This page does not render the site. It forwards a confirmation hash, or
+// sends everyone else to sign in.
+export function signedOutHomeDocument(): string {
+  const callback = JSON.stringify(authRoutes.callback)
+  const signIn = JSON.stringify(authRoutes.signIn)
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>IYAFYL</title><script>(function(){try{var h=location.hash;if(h.indexOf("access_token=")!==-1&&h.indexOf("refresh_token=")!==-1){location.replace(${callback}+h);return}location.replace(${signIn})}catch(e){location.replace(${signIn})}})()</script><noscript><meta http-equiv="refresh" content="0;url=${authRoutes.signIn}"></noscript></head><body><p><a href="${authRoutes.signIn}">Sign in</a></p></body></html>`
 }
 
 export interface AuthFormState {
