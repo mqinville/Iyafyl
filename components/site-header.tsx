@@ -3,10 +3,10 @@ import Link from "next/link"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLinks } from "@/components/nav-links"
 import { ProfileMenu } from "@/components/profile-menu"
-import { getSessionProfile } from "@/lib/server/auth-session"
+import { getUserEmail } from "@/lib/server/auth-session"
 
 export async function SiteHeader() {
-  const profile = await getSessionProfile()
+  const email = await getUserEmail()
 
   return (
     <header className="flex items-center justify-between border-b border-rule-strong gutter-x py-[22px]">
@@ -27,11 +27,7 @@ export async function SiteHeader() {
       <div className="flex items-center gap-6">
         <NavLinks className="hidden lg:flex" />
         <div className="flex items-center gap-1">
-          <ProfileMenu
-            email={profile?.email ?? null}
-            displayName={profile?.displayName ?? null}
-            signedIn={profile !== null}
-          />
+          <ProfileMenu email={email} />
           <MobileNav />
         </div>
       </div>
