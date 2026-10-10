@@ -20,7 +20,6 @@ export async function getUserEmail(): Promise<string | null> {
 export interface SessionProfile {
   email: string | null
   displayName: string | null
-  leagueId: string | null
 }
 
 async function loadSessionProfile(): Promise<SessionProfile | null> {
@@ -37,7 +36,7 @@ async function loadSessionProfile(): Promise<SessionProfile | null> {
 
   const { data, error } = await supabase
     .from("profiles")
-    .select("display_name, league_id")
+    .select("display_name")
     .eq("id", userId)
     .maybeSingle()
   if (error) {
@@ -47,7 +46,6 @@ async function loadSessionProfile(): Promise<SessionProfile | null> {
   return {
     email: readEmail(claims.email),
     displayName: data?.display_name ?? null,
-    leagueId: data?.league_id ?? null,
   }
 }
 

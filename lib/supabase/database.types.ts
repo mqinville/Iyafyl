@@ -39,7 +39,6 @@ export type Database = {
           created_at: string
           display_name: string | null
           id: string
-          league_id: string | null
           sleeper_user_id: string | null
           updated_at: string
         }
@@ -47,7 +46,6 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id: string
-          league_id?: string | null
           sleeper_user_id?: string | null
           updated_at?: string
         }
@@ -55,7 +53,6 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
-          league_id?: string | null
           sleeper_user_id?: string | null
           updated_at?: string
         }

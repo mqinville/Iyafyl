@@ -4,7 +4,6 @@ import { MobileNav } from "@/components/mobile-nav"
 import { NavLinks } from "@/components/nav-links"
 import { ProfileMenu } from "@/components/profile-menu"
 import { getSessionProfile } from "@/lib/server/auth-session"
-import { getSupabaseEnv } from "@/lib/supabase/env"
 
 export async function SiteHeader() {
   const profile = await getSessionProfile()
@@ -31,10 +30,7 @@ export async function SiteHeader() {
           <ProfileMenu
             email={profile?.email ?? null}
             displayName={profile?.displayName ?? null}
-            leagueId={profile?.leagueId ?? null}
             signedIn={profile !== null}
-            hasEnvLeagueId={Boolean(process.env.LEAGUE_ID)}
-            supabaseAvailable={getSupabaseEnv() !== null}
           />
           <MobileNav />
         </div>

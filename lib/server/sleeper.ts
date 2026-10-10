@@ -1,7 +1,6 @@
 import "server-only"
 
 import { placeholderStandings } from "@/lib/league"
-import { getSessionProfile } from "@/lib/server/auth-session"
 import type {
   HomeData,
   SleeperRoster,
@@ -49,21 +48,8 @@ export function rankRosters(
   return rows.map((row, i) => ({ ...row, rank: i + 1 }))
 }
 
-// Saved profile league id, then the LEAGUE_ID env var, then sample standings.
-async function resolveLeagueId(): Promise<string | undefined> {
-  const profile = await getSessionProfile()
-  if (profile?.leagueId) {
-    return profile.leagueId
-  }
-  const fallback = process.env.LEAGUE_ID
-  if (fallback) {
-    return fallback
-  }
-  return undefined
-}
-
 export async function getHomeData(): Promise<HomeData> {
-  const leagueId = await resolveLeagueId()
+  const leagueId = process.env.LEAGUE_ID
   if (!leagueId) {
     return {
       source: "placeholder",
