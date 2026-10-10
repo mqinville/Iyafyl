@@ -1,10 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
-import { SignInLink } from "@/components/auth/sign-in-link"
-import { UserMenu } from "@/components/auth/user-menu"
 import { MobileNav } from "@/components/mobile-nav"
 import { NavLinks } from "@/components/nav-links"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { ProfileMenu } from "@/components/profile-menu"
 import { getUserEmail } from "@/lib/server/auth-session"
 
 export async function SiteHeader() {
@@ -28,9 +26,8 @@ export async function SiteHeader() {
       </Link>
       <div className="flex items-center gap-6">
         <NavLinks className="hidden lg:flex" />
-        {email ? <UserMenu email={email} /> : <SignInLink />}
         <div className="flex items-center gap-1">
-          <ThemeToggle />
+          <ProfileMenu email={email} />
           <MobileNav />
         </div>
       </div>

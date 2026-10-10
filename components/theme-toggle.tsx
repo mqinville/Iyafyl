@@ -10,20 +10,22 @@ export const ThemeToggle: FC = () => {
     const dark = document.documentElement.classList.toggle("dark")
     try {
       localStorage.setItem(THEME_STORAGE_KEY, dark ? "dark" : "light")
-    } catch {}
+    } catch {
+      // Storage can be blocked. The class on <html> still applies for this visit.
+    }
   }
 
   return (
     <Button
-      variant="ghost"
-      size="icon"
-      className="size-11 md:size-9"
+      type="button"
+      variant="outline"
+      className="h-11 w-fit justify-start md:h-9"
       onClick={toggle}
     >
-      <Sun className="hidden dark:block" />
-      <Moon className="dark:hidden" />
-      <span className="sr-only dark:hidden">Switch to dark theme</span>
-      <span className="sr-only hidden dark:inline">Switch to light theme</span>
+      <Sun className="hidden dark:block" aria-hidden="true" />
+      <Moon className="dark:hidden" aria-hidden="true" />
+      <span className="dark:hidden">Switch to dark theme</span>
+      <span className="hidden dark:inline">Switch to light theme</span>
     </Button>
   )
 }
