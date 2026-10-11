@@ -22,7 +22,7 @@ export const SignInLink: FC = () => {
       href={authRoutes.signIn}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "-my-3 inline-flex min-h-11 items-center",
+        "inline-flex min-h-11 items-center",
         navTextClass,
         navLinkClass(active),
       )}
