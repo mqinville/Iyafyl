@@ -39,6 +39,100 @@ export interface SleeperUser {
   metadata?: { team_name?: string } | null
 }
 
+// One row of the header player search (GET /api/players/search).
+export interface PlayerSearchResult {
+  id: string
+  name: string
+  position: string | null
+  team: string | null
+  active: boolean
+  // Sleeper CDN headshot (team logo for defenses); may 403 when missing.
+  imageUrl: string
+}
+
+export interface PlayerSearchResponse {
+  results: PlayerSearchResult[]
+}
+
+export type SeasonType = "regular" | "post"
+export type Participation = "played" | "inactive" | "bye"
+
+// GET /api/players/[playerId]: bio, full game log and latest-season schedule.
+export interface PlayerCardBio {
+  id: string
+  name: string
+  position: string | null
+  team: string | null
+  active: boolean
+  // "" and "NA" from Sleeper are normalized to null.
+  injuryStatus: string | null
+  jerseyNumber: number | null
+  heightIn: number | null
+  weightLb: number | null
+  // ISO date.
+  birthDate: string | null
+  college: string | null
+  yearsExp: number | null
+  imageUrl: string
+}
+
+export interface PlayerGameLog {
+  season: number
+  seasonType: SeasonType
+  week: number
+  participation: Participation
+  team: string
+  opponent: string | null
+  // From nfl_games (team === away); null when there is no game.
+  isAway: boolean | null
+  gameDate: string | null
+  ptsStd: number | null
+  ptsHalfPpr: number | null
+  ptsPpr: number | null
+  stats: Record<string, number> | null
+}
+
+// Team schedule for the latest season; fills weeks without a log row.
+export interface PlayerScheduleGame {
+  seasonType: SeasonType
+  week: number
+  opponent: string
+  isAway: boolean
+  gameDate: string | null
+}
+
+export interface PlayerCardSchedule {
+  season: number
+  team: string
+  games: PlayerScheduleGame[]
+}
+
+export interface PlayerCard {
+  bio: PlayerCardBio
+  // Distinct seasons with any log row, descending.
+  seasons: number[]
+  // Season desc, then regular before post, then week asc.
+  logs: PlayerGameLog[]
+  // Null when the player has no team or no known season.
+  schedule: PlayerCardSchedule | null
+}
+
+export interface PlayerCardResponse {
+  card: PlayerCard
+}
+
+export interface PlayerCardErrorResponse {
+  error: "not_found" | "unauthorized" | "unavailable"
+}
+
+// What a player tab needs; PlayerSearchResult is structurally assignable.
+export interface PlayerTab {
+  id: string
+  name: string
+  position: string | null
+  team: string | null
+}
+
 export type HomeData =
   | { source: "placeholder"; standings: StandingRow[]; totalTeams: number }
   | { source: "sleeper"; standings: StandingRow[]; totalTeams: number }

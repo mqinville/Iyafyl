@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import type { FC, ReactNode } from "react"
+import { PlayerCardDialog } from "@/components/player-card/player-card-dialog"
+import { PlayerTabsProvider } from "@/components/player-card/player-tabs-provider"
 import { SiteHeader } from "@/components/site-header"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { themeScript } from "@/lib/theme"
@@ -68,8 +70,11 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
           Skip to content
         </a>
         <TooltipProvider>
-          <SiteHeader />
-          {children}
+          <PlayerTabsProvider>
+            <SiteHeader />
+            {children}
+            <PlayerCardDialog />
+          </PlayerTabsProvider>
         </TooltipProvider>
       </body>
     </html>

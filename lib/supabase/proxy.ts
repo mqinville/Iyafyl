@@ -46,6 +46,8 @@ export async function updateSession(
 
   const { pathname, search } = request.nextUrl
   if (!data?.claims && !isPublicPath(pathname)) {
+    // API clients need a status code, not the login page.
+    const isApi = pathname.startsWith("/api/")
     const url = request.nextUrl.clone()
     url.pathname = authRoutes.signIn
     url.search = ""
@@ -53,16 +55,18 @@ export async function updateSession(
     if (original !== authRoutes.home) {
       url.searchParams.set("next", original)
     }
-    const redirect = NextResponse.redirect(url)
-    // Keep refreshed/cleared auth cookies and cache headers on the redirect.
-    response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie))
+    const denied = isApi
+      ? NextResponse.json({ error: "unauthorized" }, { status: 401 })
+      : NextResponse.redirect(url)
+    // Keep refreshed/cleared auth cookies and cache headers on the redirect or 401.
+    response.cookies.getAll().forEach((cookie) => denied.cookies.set(cookie))
     for (const key of ["cache-control", "expires", "pragma"]) {
       const value = response.headers.get(key)
       if (value) {
-        redirect.headers.set(key, value)
+        denied.headers.set(key, value)
       }
     }
-    return redirect
+    return denied
   }
 
   return response

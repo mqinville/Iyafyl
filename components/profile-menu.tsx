@@ -3,6 +3,7 @@
 import { User } from "lucide-react"
 import { useState, type FC } from "react"
 import { SignInLink } from "@/components/auth/sign-in-link"
+import { SignOutForm } from "@/components/auth/sign-out-form"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
@@ -47,7 +48,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ email }) => {
                 <p className="text-sm break-all text-muted-foreground">
                   {email}
                 </p>
-                <form action={signOutAction}>
+                <SignOutForm action={signOutAction}>
                   <Button
                     type="submit"
                     variant="outline"
@@ -55,7 +56,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ email }) => {
                   >
                     Sign out
                   </Button>
-                </form>
+                </SignOutForm>
               </>
             ) : (
               <SignInLink />
