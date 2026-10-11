@@ -2,11 +2,19 @@ import type { SupabaseClient } from "@supabase/supabase-js"
 
 import { upsertRows } from "@/data/shared/db"
 import type { RunContext } from "@/data/shared/runs"
-import { fetchJson, SLEEPER_STATS_API } from "@/data/shared/sleeper"
 import type { Database } from "@/lib/supabase/database.types"
 
 import { fillMissingWeeks, type WeekRow } from "./fill-weeks"
-import { fetchSchedule, saveGames, type SeasonType } from "./schedule"
+import {
+  fetchSchedule,
+  logReplaced,
+  pruneGames,
+  resolveDuplicateGames,
+  SEASON_TYPES,
+  saveGames,
+  type SeasonType,
+} from "./schedule"
+import { fetchStatsWeek } from "./sleeper-stats"
 import type { SleeperStatsRow } from "./sleeper-types"
 
 interface WeekCounts {
@@ -16,6 +24,19 @@ interface WeekCounts {
 }
 
 const READ_PAGE = 1000
+
+/**
+ * Team defenses are players keyed by the franchise's current abbreviation.
+ * Before a relocation Sleeper keys them by the old one (STL until 2015, SD
+ * until 2016, OAK until 2019), and for OAK in 2017-2019 it returns both ids
+ * with the same stats. Old-id rows are stored under the current id, only for
+ * weeks that have no current-id row; `team` keeps the old abbreviation.
+ */
+const RELOCATED_DEFENSES: Record<string, string> = {
+  OAK: "LV",
+  SD: "LAC",
+  STL: "LAR",
+}
 
 /** Loads every known player id, paging because the API caps at 1000 rows. */
 export async function loadKnownPlayerIds(
@@ -44,22 +65,13 @@ export async function loadKnownPlayerIds(
   return ids
 }
 
-// WARNING: /stats/nfl is an unofficial, undocumented Sleeper endpoint and may
-// change or break without notice.
-// Sleeper answers `{}` (an object) instead of `[]` for weeks without data.
-async function fetchWeek(
-  season: number,
-  seasonType: SeasonType,
-  week: number,
-): Promise<SleeperStatsRow[]> {
-  const body = await fetchJson<SleeperStatsRow[] | Record<string, never>>(
-    `${SLEEPER_STATS_API}/stats/nfl/${season}/${week}?season_type=${seasonType}`,
-  )
-  return Array.isArray(body) ? body : []
-}
-
-function statNumber(stats: Record<string, number>, key: string): number | null {
-  return typeof stats[key] === "number" ? stats[key] : null
+/**
+ * Fantasy points for a played row. Sleeper omits a pts_* key when it is 0
+ * (it never sends an explicit 0; a 0-yard catch has pts_ppr but no pts_std),
+ * so a missing key on a played row means 0, not unknown.
+ */
+function points(stats: Record<string, number>, key: string): number {
+  return typeof stats[key] === "number" ? stats[key] : 0
 }
 
 /**
@@ -69,11 +81,12 @@ function statNumber(stats: Record<string, number>, key: string): number | null {
 function toRow(
   season: number,
   seasonType: SeasonType,
+  playerId: string,
   row: SleeperStatsRow,
 ): WeekRow {
   const played = row.stats.gp === 1
   return {
-    player_id: row.player_id,
+    player_id: playerId,
     season,
     season_type: seasonType,
     week: row.week,
@@ -83,36 +96,79 @@ function toRow(
     opponent: row.opponent,
     game_id: row.game_id,
     game_date: row.date,
-    pts_std: played ? statNumber(row.stats, "pts_std") : null,
-    pts_half_ppr: played ? statNumber(row.stats, "pts_half_ppr") : null,
-    pts_ppr: played ? statNumber(row.stats, "pts_ppr") : null,
+    pts_std: played ? points(row.stats, "pts_std") : null,
+    pts_half_ppr: played ? points(row.stats, "pts_half_ppr") : null,
+    pts_ppr: played ? points(row.stats, "pts_ppr") : null,
     stats: played ? row.stats : null,
   }
 }
 
+function rowKey(row: WeekRow): string {
+  return `${row.player_id}|${row.season_type}|${row.week}`
+}
+
+/** API rows always carry a game id; only fill rows leave it null. */
+function gameIdOf(row: WeekRow): string {
+  return row.game_id ?? ""
+}
+
 /**
- * Loads one season: schedule first (stat rows reference its game ids), then
- * every week's stat rows, then the bye/inactive fill for the regular season.
- * On a dry run everything is fetched and counted, nothing is written.
- * knownPlayerIds comes from the caller so backfill loads it once.
+ * Merges the API rows into one row per player-week. Primary rows (current
+ * player id, kept game id) win. Fallback rows, a copy on a dropped twin game
+ * or an old defense id, are remapped to the kept game id and only fill
+ * player-weeks no other row covers, so they never overwrite one.
+ */
+function mergeFallbackRows(
+  apiRows: WeekRow[],
+  relocatedRows: WeekRow[],
+  replacedBy: ReadonlyMap<string, string>,
+): { rows: WeekRow[]; relocatedStored: number } {
+  const remap = (row: WeekRow): WeekRow => {
+    const keptId = replacedBy.get(gameIdOf(row))
+    return keptId ? { ...row, game_id: keptId } : row
+  }
+  const onDroppedTwin = (row: WeekRow): boolean => replacedBy.has(gameIdOf(row))
+
+  const rows = apiRows.filter((row) => !onDroppedTwin(row))
+  const covered = new Set(rows.map(rowKey))
+  const addMissing = (fallback: WeekRow[]): number => {
+    let added = 0
+    for (const row of fallback.map(remap)) {
+      if (!covered.has(rowKey(row))) {
+        covered.add(rowKey(row))
+        rows.push(row)
+        added++
+      }
+    }
+    return added
+  }
+  addMissing(apiRows.filter(onDroppedTwin))
+  return { rows, relocatedStored: addMissing(relocatedRows) }
+}
+
+/**
+ * Loads one season: the schedule, every week's stat rows, then the games
+ * (twins resolved by which ids the stat rows reference), the stat rows, the
+ * bye/inactive fill for the regular season, and finally a prune of games an
+ * older run stored by mistake. On a dry run everything is fetched and
+ * counted, nothing is written. knownPlayerIds comes from the caller so
+ * backfill loads it once.
  */
 export async function syncSeasonStats(
   ctx: RunContext,
   season: number,
   knownPlayerIds: Set<string>,
 ): Promise<number> {
-  const games = await fetchSchedule(season)
-  await saveGames(ctx, games)
+  const listedGames = await fetchSchedule(season)
 
-  const gameIds = new Set(games.map((game) => game.game_id))
-  const regularGames = games.filter((game) => game.season_type === "regular")
+  const regularGames = listedGames.filter((g) => g.season_type === "regular")
   const maxRegularWeek = Math.max(0, ...regularGames.map((g) => g.week))
 
   // Postseason weeks come from the schedule (canceled games are already
   // dropped), so a season without playoffs yet fetches none.
   const postWeeks = [
     ...new Set(
-      games.filter((g) => g.season_type === "post").map((g) => g.week),
+      listedGames.filter((g) => g.season_type === "post").map((g) => g.week),
     ),
   ].sort((a, b) => a - b)
 
@@ -124,35 +180,38 @@ export async function syncSeasonStats(
     ...postWeeks.map((week): [SeasonType, number] => ["post", week]),
   ]
 
-  const rows: WeekRow[] = []
+  const apiRows: WeekRow[] = []
+  const relocatedRows: WeekRow[] = []
   const unknownIds = new Set<string>()
-  const unknownGames = new Set<string>()
   for (const [seasonType, week] of plan) {
     const counts: WeekCounts = { played: 0, inactive: 0, skipped: 0 }
-    for (const apiRow of await fetchWeek(season, seasonType, week)) {
-      // TEAM_ rows are aggregates. Player ids are strings and "0" is a real
-      // id, so never test them for truthiness.
+    for (const apiRow of await fetchStatsWeek(season, seasonType, week)) {
+      // TEAM_ rows are aggregates. Player ids are strings, so never test
+      // them for truthiness.
       if (apiRow.player_id.startsWith("TEAM_")) {
         counts.skipped++
         continue
       }
-      if (!knownPlayerIds.has(apiRow.player_id)) {
-        unknownIds.add(apiRow.player_id)
+      const relocatedTo = RELOCATED_DEFENSES[apiRow.player_id]
+      const playerId = relocatedTo ?? apiRow.player_id
+      if (!knownPlayerIds.has(playerId)) {
+        unknownIds.add(playerId)
         counts.skipped++
         continue
       }
-      if (!gameIds.has(apiRow.game_id)) {
-        unknownGames.add(apiRow.game_id)
-        counts.skipped++
+      const row = toRow(season, seasonType, playerId, apiRow)
+      // Old-id defense rows may duplicate a current-id row, so they are
+      // reported by the merge below rather than counted here.
+      if (relocatedTo) {
+        relocatedRows.push(row)
         continue
       }
-      const row = toRow(season, seasonType, apiRow)
       if (row.participation === "played") {
         counts.played++
       } else {
         counts.inactive++
       }
-      rows.push(row)
+      apiRows.push(row)
     }
     if (counts.played + counts.inactive + counts.skipped > 0) {
       console.log(
@@ -167,12 +226,41 @@ export async function syncSeasonStats(
       `  WARNING: skipped ${unknownIds.size} player ids missing from players (e.g. ${examples}). A large count means players is stale: run \`metadata\`.`,
     )
   }
-  // The schedule dedupe rule was checked against every 2009/2010 duplicate,
-  // so an unknown id here means Sleeper's schedule changed shape.
+
+  const rowsPerGame = new Map<string, number>()
+  for (const row of [...apiRows, ...relocatedRows]) {
+    rowsPerGame.set(gameIdOf(row), (rowsPerGame.get(gameIdOf(row)) ?? 0) + 1)
+  }
+  const { kept: games, replacedBy } = resolveDuplicateGames(
+    listedGames,
+    rowsPerGame,
+  )
+  logReplaced(replacedBy)
+
+  const merged = mergeFallbackRows(apiRows, relocatedRows, replacedBy)
+  if (relocatedRows.length > 0) {
+    const duplicates = relocatedRows.length - merged.relocatedStored
+    console.log(
+      `  Relocated defenses: ${merged.relocatedStored} old-id rows stored under the current id; ${duplicates} skipped as copies of rows already stored.`,
+    )
+  }
+
+  const gameIds = new Set(games.map((game) => game.game_id))
+  const unknownGames = new Set<string>()
+  const rows = merged.rows.filter((row) => {
+    const gameId = gameIdOf(row)
+    if (!gameIds.has(gameId)) {
+      unknownGames.add(gameId)
+      return false
+    }
+    return true
+  })
+  // Twins are merged above, so an unknown id here means a stat row points at
+  // a game the schedule does not list at all.
   if (unknownGames.size > 0) {
     const examples = [...unknownGames].slice(0, 5).join(", ")
     console.warn(
-      `  WARNING: skipped rows for ${unknownGames.size} game ids missing from the ${season} schedule (e.g. ${examples}). schedule.ts probably dropped a real game.`,
+      `  WARNING: skipped rows for ${unknownGames.size} game ids missing from the ${season} schedule (e.g. ${examples}).`,
     )
   }
 
@@ -184,13 +272,19 @@ export async function syncSeasonStats(
   rows.push(...fill.rows)
 
   if (ctx.dryRun) {
+    // Only reads under a dry run, to preview what a real run would delete.
+    await pruneGames(ctx, season, SEASON_TYPES, games)
     console.log(`Dry run: ${rows.length} rows prepared, nothing written.`)
     return 0
   }
-  return upsertRows(ctx.client, "player_week_stats", rows, [
+  // Stat rows reference games, so games go first and the prune goes last.
+  await saveGames(ctx, games)
+  const written = await upsertRows(ctx.client, "player_week_stats", rows, [
     "player_id",
     "season",
     "season_type",
     "week",
   ])
+  await pruneGames(ctx, season, SEASON_TYPES, games)
+  return written
 }

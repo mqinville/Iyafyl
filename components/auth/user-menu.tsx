@@ -1,5 +1,6 @@
 import { LogOut } from "lucide-react"
 import type { FC } from "react"
+import { SignOutForm } from "@/components/auth/sign-out-form"
 import { Button } from "@/components/ui/button"
 import { signOutAction } from "@/lib/server/auth-actions"
 import { navTextClass } from "@/lib/link-classes"
@@ -22,7 +23,7 @@ export const UserMenu: FC<UserMenuProps> = ({ email }) => {
       >
         {email}
       </span>
-      <form action={signOutAction}>
+      <SignOutForm action={signOutAction}>
         <Button
           type="submit"
           variant="outline"
@@ -32,7 +33,7 @@ export const UserMenu: FC<UserMenuProps> = ({ email }) => {
           <LogOut className="sm:hidden" />
           <span className="sr-only sm:not-sr-only">Sign out</span>
         </Button>
-      </form>
+      </SignOutForm>
     </div>
   )
 }

@@ -12,6 +12,7 @@ import {
   type FocusEvent,
   type KeyboardEvent,
 } from "react"
+import { usePlayerTabs } from "@/components/player-card/player-tabs-provider"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -145,6 +146,7 @@ interface PlayerSearchProps {
   autoFocus?: boolean
   inline?: boolean
   shortcut?: boolean
+  // Runs after the card opens (e.g. the mobile sheet uses it to close).
   onSelect?: (player: PlayerSearchResult) => void
 }
 
@@ -155,6 +157,7 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
   shortcut,
   onSelect,
 }) => {
+  const { openPlayer } = usePlayerTabs()
   const [query, setQuery] = useState("")
   const [search, setSearch] = useState<SearchState>(EMPTY_SEARCH)
   const [open, setOpen] = useState(false)
@@ -245,10 +248,14 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
       ?.scrollIntoView({ block: "nearest" })
   }, [activeIndex, baseId])
 
-  const clear = () => {
+  const reset = () => {
     setQuery("")
     setSearch(EMPTY_SEARCH)
     setActiveIndex(-1)
+  }
+
+  const clear = () => {
+    reset()
     inputRef.current?.focus()
   }
 
@@ -256,9 +263,11 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
     if (status !== "ready") {
       return
     }
+    openPlayer(player)
     onSelect?.(player)
+    // Keep focus free to move into the dialog.
+    reset()
     setOpen(false)
-    setActiveIndex(-1)
   }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -357,6 +366,8 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
         <Input
           ref={inputRef}
           type="search"
+          // Fallback focus target when the player card closes (header copy only)
+          data-player-search-focus={inline ? undefined : ""}
           role="combobox"
           aria-label="Search players"
           aria-expanded={showPanel}
@@ -462,7 +473,12 @@ export const PlayerSearchTrigger: FC = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-11 xl:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          data-player-search-focus
+          className="size-11 xl:hidden"
+        >
           <Search />
           <span className="sr-only">Search players</span>
         </Button>

@@ -16,8 +16,14 @@ const USAGE = `Usage: bun run data:player <job> [flags]
 Jobs:
   metadata                          Sleeper players -> players
   schedule  --season <n> [--season-type regular|post]
+                                    Sleeper schedule -> nfl_games; also fetches
+                                    the stat weeks with duplicate game ids
   stats     --season <n>            schedule + weekly stats + bye/inactive fill
+                                    (canonical: prefer it over schedule)
   backfill  --from <n> [--to <n>]   stats for every season in the range
+
+schedule and stats merge Sleeper's duplicate game ids and delete stored games
+that are no longer kept (with --dry-run they are only listed).
 
 Seasons run from ${FIRST_SEASON} to the current season; the current,
 in-progress season is safe to re-run.
