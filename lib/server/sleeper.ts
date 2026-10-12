@@ -1,5 +1,7 @@
 import "server-only"
 
+import { connection } from "next/server"
+
 import { placeholderStandings } from "@/lib/league"
 import type {
   HomeData,
@@ -42,7 +44,10 @@ type RecapWeekDecision =
   | { kind: "week"; week: number }
   | { kind: "state-week-if-scored"; week: number }
 
-function readLeagueId(): string | null {
+async function readLeagueId(): Promise<string | null> {
+  // LEAGUE_ID is a runtime env var. Without this, a build that does not have
+  // it prerenders the placeholder and ignores the value at request time.
+  await connection()
   const leagueId = process.env.LEAGUE_ID
   if (!leagueId) {
     return null
@@ -410,7 +415,7 @@ async function fetchNflState(): Promise<ParsedState> {
 }
 
 export async function getLeagueSummary(): Promise<LeagueSummary> {
-  const leagueId = readLeagueId()
+  const leagueId = await readLeagueId()
   if (!leagueId) {
     return { source: "placeholder" }
   }
@@ -436,7 +441,7 @@ export async function getLeagueSummary(): Promise<LeagueSummary> {
 }
 
 export async function getLeagueStandings(): Promise<LeagueStandings> {
-  const leagueId = readLeagueId()
+  const leagueId = await readLeagueId()
   if (!leagueId) {
     return { source: "placeholder" }
   }
@@ -455,7 +460,7 @@ export async function getLeagueStandings(): Promise<LeagueStandings> {
 }
 
 export async function getLeagueRecap(): Promise<LeagueRecap> {
-  const leagueId = readLeagueId()
+  const leagueId = await readLeagueId()
   if (!leagueId) {
     return { source: "placeholder" }
   }
