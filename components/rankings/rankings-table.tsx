@@ -1,4 +1,3 @@
-import Link from "next/link"
 import type { FC, ReactNode } from "react"
 import {
   ColumnLabel,
@@ -6,6 +5,7 @@ import {
   formatDecimal,
   numCell,
 } from "@/components/player-card/game-log-table"
+import { SortLink } from "@/components/rankings/sort-link"
 import { PlayerNameButton } from "@/components/rankings/player-name-button"
 import {
   TableBody,
@@ -16,9 +16,9 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import {
+  defaultDirFor,
   pointsKey,
   rankingsColumnsFor,
-  rankingsHref,
   RANKINGS_PAGE_SIZE,
   type RankingSortKey,
   type RankingsParams,
@@ -26,45 +26,13 @@ import {
 import type { RankingRow } from "@/lib/server/rankings"
 import { cn } from "@/lib/utils"
 
-const stickyPlayer = "sticky left-0 z-10 w-64 min-w-64 bg-card"
+// The right-edge shadow shows that the stat columns scroll beneath.
+const stickyPlayer =
+  "sticky left-0 z-10 w-40 min-w-40 bg-card shadow-[1px_0_0_var(--border),6px_0_8px_-6px_rgb(0_0_0/0.18)] sm:w-64 sm:min-w-64"
 
 interface RankingsTableProps {
   params: RankingsParams
   rows: RankingRow[]
-}
-
-interface SortLinkProps {
-  params: RankingsParams
-  sortKey: RankingSortKey
-  firstDir: "asc" | "desc"
-  children: ReactNode
-  className?: string
-}
-
-const SortLink: FC<SortLinkProps> = ({
-  params,
-  sortKey,
-  firstDir,
-  children,
-  className,
-}) => {
-  const active = params.sort === sortKey
-  const dir = active ? (params.dir === "desc" ? "asc" : "desc") : firstDir
-  return (
-    <Link
-      href={rankingsHref(params, { sort: sortKey, dir })}
-      className={cn(
-        "inline-flex items-center gap-0.5 rounded-sm hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-        active && "text-foreground",
-        className,
-      )}
-    >
-      {children}
-      <span aria-hidden="true" className="w-2 text-[9px]">
-        {active ? (params.dir === "desc" ? "▼" : "▲") : ""}
-      </span>
-    </Link>
-  )
 }
 
 function ariaSort(
@@ -122,16 +90,35 @@ export const RankingsTable: FC<RankingsTableProps> = ({ params, rows }) => {
               aria-sort={ariaSort(params, "full_name")}
               className={stickyPlayer}
             >
-              <SortLink params={params} sortKey="full_name" firstDir="asc">
-                PLAYER
-              </SortLink>
+              <div className="flex items-center gap-2.5">
+                <span
+                  title="Row number"
+                  className="w-6 shrink-0 text-right font-mono text-xs font-normal text-muted-foreground"
+                >
+                  <span aria-hidden="true">#</span>
+                  <span className="sr-only">Row</span>
+                </span>
+                <SortLink
+                  params={params}
+                  sortKey="full_name"
+                  firstDir="asc"
+                  label="Player"
+                >
+                  PLAYER
+                </SortLink>
+              </div>
             </TableHead>
             <TableHead
               scope="col"
               aria-sort={ariaSort(params, "gp")}
               className={cn("border-l border-border", numCell)}
             >
-              <SortLink params={params} sortKey="gp" firstDir="desc">
+              <SortLink
+                params={params}
+                sortKey="gp"
+                firstDir="desc"
+                label="Games played"
+              >
                 <ColumnLabel label="GP" title="Games played" />
               </SortLink>
             </TableHead>
@@ -150,7 +137,8 @@ export const RankingsTable: FC<RankingsTableProps> = ({ params, rows }) => {
                   <SortLink
                     params={params}
                     sortKey={column.key as RankingSortKey}
-                    firstDir="desc"
+                    firstDir={defaultDirFor(column.key as RankingSortKey)}
+                    label={column.title}
                   >
                     <ColumnLabel label={column.label} title={column.title} />
                   </SortLink>

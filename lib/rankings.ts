@@ -47,6 +47,9 @@ export type RankingStatKey =
   | "fum_rec"
   | "def_td"
   | "pts_allow"
+  | "flock_rank"
+  | "flock_pos_rank"
+  | "flock_tier"
 
 // Every key the player_rankings RPC accepts as p_sort.
 export type RankingSortKey = RankingStatKey | "full_name"
@@ -77,12 +80,39 @@ const STAT_KEYS: readonly RankingStatKey[] = [
   "fum_rec",
   "def_td",
   "pts_allow",
+  "flock_rank",
+  "flock_pos_rank",
+  "flock_tier",
 ]
 export const RANKING_STAT_KEYS = STAT_KEYS
 const SORT_KEYS: readonly string[] = [...STAT_KEYS, "full_name"]
 
 export type SortDirection = "asc" | "desc"
 export type PlayerStatus = "active" | "inactive"
+
+// Mirrors FLOCK_LISTS in data/flock/script/flock-api.ts and the list check
+// constraint plus the player_rankings validation in
+// supabase/migrations/20261011120000_flock_rankings.sql.
+export type FlockList = "REDRAFT" | "REDRAFT_SF"
+export const FLOCK_LISTS: readonly { value: FlockList; label: string }[] = [
+  { value: "REDRAFT", label: "Redraft 1QB" },
+  { value: "REDRAFT_SF", label: "Redraft SF" },
+]
+const DEFAULT_FLOCK_LIST: FlockList = "REDRAFT"
+const MAX_CREATOR_LENGTH = 60
+
+// Rank-like columns read best with 1 first; everything else leads with the
+// biggest value.
+const ASCENDING_SORT_KEYS: ReadonlySet<RankingSortKey> = new Set([
+  "full_name",
+  "flock_rank",
+  "flock_pos_rank",
+  "flock_tier",
+])
+
+export function defaultDirFor(sort: RankingSortKey): SortDirection {
+  return ASCENDING_SORT_KEYS.has(sort) ? "asc" : "desc"
+}
 
 export interface RankingsParams {
   position: PositionFilter
@@ -94,6 +124,10 @@ export interface RankingsParams {
   scoring: ScoringFormat
   sort: RankingSortKey
   dir: SortDirection
+  flockList: FlockList
+  // null = consensus; otherwise a creator display name.
+  flockCreator: string | null
+  rankedOnly: boolean
   // 1-based.
   page: number
 }
@@ -160,9 +194,15 @@ export function parseRankingsParams(raw: RawParams): RankingsParams {
   const resolvedSort = isPointsKey(sort) ? pointsKey(scoring) : sort
 
   const dirRaw = first(raw, "dir")
-  const defaultDir: SortDirection = "desc"
   const dir: SortDirection =
-    dirRaw === "asc" || dirRaw === "desc" ? dirRaw : defaultDir
+    dirRaw === "asc" || dirRaw === "desc" ? dirRaw : defaultDirFor(resolvedSort)
+
+  const flockList =
+    FLOCK_LISTS.find((l) => l.value === first(raw, "flock"))?.value ??
+    DEFAULT_FLOCK_LIST
+  const creatorRaw = (first(raw, "creator") ?? "")
+    .trim()
+    .slice(0, MAX_CREATOR_LENGTH)
 
   const pageRaw = toInt(first(raw, "page"))
   const page =
@@ -178,6 +218,9 @@ export function parseRankingsParams(raw: RawParams): RankingsParams {
     scoring,
     sort: resolvedSort,
     dir,
+    flockList,
+    flockCreator: creatorRaw === "" ? null : creatorRaw,
+    rankedOnly: first(raw, "ranked") === "1",
     page,
   }
 }
@@ -197,6 +240,9 @@ export function rankingsHref(
   }
   if (patch.scoring && isPointsKey(next.sort)) {
     next.sort = pointsKey(next.scoring)
+  }
+  if (patch.sort !== undefined && patch.dir === undefined) {
+    next.dir = defaultDirFor(next.sort)
   }
   if (patch.seasonType && patch.week === undefined) {
     next.week = null
@@ -227,8 +273,17 @@ export function rankingsHref(
   if (next.sort !== pointsKey(next.scoring)) {
     query.set("sort", next.sort)
   }
-  if (next.dir !== "desc") {
+  if (next.dir !== defaultDirFor(next.sort)) {
     query.set("dir", next.dir)
+  }
+  if (next.flockList !== DEFAULT_FLOCK_LIST) {
+    query.set("flock", next.flockList)
+  }
+  if (next.flockCreator !== null) {
+    query.set("creator", next.flockCreator)
+  }
+  if (next.rankedOnly) {
+    query.set("ranked", "1")
   }
   if (next.page > 1) {
     query.set("page", String(next.page))
@@ -244,6 +299,19 @@ function fantasyGroup(scoring: ScoringFormat): StatGroup {
       { key: pointsKey(scoring), label: "PTS", title: "Fantasy points" },
     ],
   }
+}
+
+const FLOCK_GROUP: StatGroup = {
+  label: "FLOCK",
+  columns: [
+    { key: "flock_rank", label: "RANK", title: "Flock rank" },
+    {
+      key: "flock_pos_rank",
+      label: "POS RK",
+      title: "Flock positional rank",
+    },
+    { key: "flock_tier", label: "TIER", title: "Flock tier" },
+  ],
 }
 
 const OFFENSE_GROUPS: StatGroup[] = [
@@ -302,12 +370,12 @@ export function rankingsColumnsFor(
 ): StatGroup[] {
   const fantasy = fantasyGroup(scoring)
   if (position === "K") {
-    return [fantasy, KICKING_GROUP]
+    return [fantasy, FLOCK_GROUP, KICKING_GROUP]
   }
   if (position === "DEF") {
-    return [fantasy, DEFENSE_GROUP]
+    return [fantasy, FLOCK_GROUP, DEFENSE_GROUP]
   }
-  return [fantasy, ...OFFENSE_GROUPS]
+  return [fantasy, FLOCK_GROUP, ...OFFENSE_GROUPS]
 }
 
 // "Kyler Murray" -> "K. Murray". Team defenses keep their full name.

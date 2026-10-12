@@ -11,6 +11,7 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "data:player": "bun --conditions=react-server data/player/script/index.ts",
+    "data:flock": "bun --conditions=react-server data/flock/script/index.ts",
     "db:types": "supabase gen types typescript --local > lib/supabase/database.types.ts.tmp && mv lib/supabase/database.types.ts.tmp lib/supabase/database.types.ts"
   },
   "dependencies": {

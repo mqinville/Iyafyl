@@ -34,6 +34,155 @@ export type Database = {
   }
   public: {
     Tables: {
+      flock_creator_rankings: {
+        Row: {
+          creator: string
+          list: string
+          overall_rank: number | null
+          overall_tier: number | null
+          player_id: string
+          positional_rank: number | null
+          positional_tier: number | null
+          updated_at: string
+          weekly_overall_rank: number | null
+          weekly_positional_rank: number | null
+        }
+        Insert: {
+          creator: string
+          list: string
+          overall_rank?: number | null
+          overall_tier?: number | null
+          player_id: string
+          positional_rank?: number | null
+          positional_tier?: number | null
+          updated_at?: string
+          weekly_overall_rank?: number | null
+          weekly_positional_rank?: number | null
+        }
+        Update: {
+          creator?: string
+          list?: string
+          overall_rank?: number | null
+          overall_tier?: number | null
+          player_id?: string
+          positional_rank?: number | null
+          positional_tier?: number | null
+          updated_at?: string
+          weekly_overall_rank?: number | null
+          weekly_positional_rank?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "flock_creator_rankings_list_player_id_fkey"
+            columns: ["list", "player_id"]
+            isOneToOne: false
+            referencedRelation: "flock_rankings"
+            referencedColumns: ["list", "player_id"]
+          },
+        ]
+      }
+      flock_ranking_sets: {
+        Row: {
+          creator_updated_at: Json | null
+          creators: string[]
+          expert_creators: string[] | null
+          fetched_at: string
+          list: string
+          season: number | null
+          subformat: string | null
+          updated_at: string
+        }
+        Insert: {
+          creator_updated_at?: Json | null
+          creators: string[]
+          expert_creators?: string[] | null
+          fetched_at: string
+          list: string
+          season?: number | null
+          subformat?: string | null
+          updated_at?: string
+        }
+        Update: {
+          creator_updated_at?: Json | null
+          creators?: string[]
+          expert_creators?: string[] | null
+          fetched_at?: string
+          list?: string
+          season?: number | null
+          subformat?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      flock_rankings: {
+        Row: {
+          average_positional_rank: number | null
+          average_positional_tier: number | null
+          average_rank: number | null
+          average_tier: number | null
+          average_weekly_positional_rank: number | null
+          bye_week: number | null
+          final_rank: number | null
+          flock_player_id: string
+          initial_rank: number | null
+          is_special_teams: boolean
+          list: string
+          player_id: string
+          rank_delta: number | null
+          raw: Json
+          updated_at: string
+        }
+        Insert: {
+          average_positional_rank?: number | null
+          average_positional_tier?: number | null
+          average_rank?: number | null
+          average_tier?: number | null
+          average_weekly_positional_rank?: number | null
+          bye_week?: number | null
+          final_rank?: number | null
+          flock_player_id: string
+          initial_rank?: number | null
+          is_special_teams?: boolean
+          list: string
+          player_id: string
+          rank_delta?: number | null
+          raw: Json
+          updated_at?: string
+        }
+        Update: {
+          average_positional_rank?: number | null
+          average_positional_tier?: number | null
+          average_rank?: number | null
+          average_tier?: number | null
+          average_weekly_positional_rank?: number | null
+          bye_week?: number | null
+          final_rank?: number | null
+          flock_player_id?: string
+          initial_rank?: number | null
+          is_special_teams?: boolean
+          list?: string
+          player_id?: string
+          rank_delta?: number | null
+          raw?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "flock_rankings_list_fkey"
+            columns: ["list"]
+            isOneToOne: false
+            referencedRelation: "flock_ranking_sets"
+            referencedColumns: ["list"]
+          },
+          {
+            foreignKeyName: "flock_rankings_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["player_id"]
+          },
+        ]
+      }
       nfl_games: {
         Row: {
           away: string
@@ -308,7 +457,10 @@ export type Database = {
           p_active?: boolean
           p_dir?: string
           p_exclude_positions?: boolean
+          p_flock_creator?: string
+          p_flock_list?: string
           p_positions?: string[]
+          p_ranked_only?: boolean
           p_search?: string
           p_season: number
           p_season_type?: string
@@ -322,6 +474,9 @@ export type Database = {
           fga: number
           fgm: number
           first_name: string
+          flock_pos_rank: number
+          flock_rank: number
+          flock_tier: number
           full_name: string
           fum_rec: number
           gp: number

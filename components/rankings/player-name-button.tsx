@@ -32,11 +32,13 @@ export const PlayerNameButton: FC<PlayerNameButtonProps> = ({
       onClick={() => openPlayer({ id, name: fullName, position, team })}
       className="flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-sm text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
-      <PlayerAvatar
-        name={fullName}
-        imageUrl={playerImageUrl(id, position)}
-        position={position}
-      />
+      <span className="hidden shrink-0 sm:block">
+        <PlayerAvatar
+          name={fullName}
+          imageUrl={playerImageUrl(id, position)}
+          position={position}
+        />
+      </span>
       <span className="min-w-0">
         <span className="block truncate text-sm font-semibold">{name}</span>
         {children}

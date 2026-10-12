@@ -42,18 +42,34 @@ function toNumber(value: unknown): number | null {
   return Number.isFinite(n) ? n : null
 }
 
-export async function getPlayerRankings(
-  params: RankingsParams,
-): Promise<RankingsOutcome> {
+type SupabaseServerClient = NonNullable<
+  Awaited<ReturnType<typeof createClient>>
+>
+
+// The server client when Supabase is configured and the viewer is signed in.
+async function signedInClient(): Promise<
+  | { status: "ok"; supabase: SupabaseServerClient }
+  | { status: "unauthorized" | "unavailable" }
+> {
   const supabase = await createClient()
   if (!supabase) {
     return { status: "unavailable" }
   }
-
   const { data: auth } = await supabase.auth.getClaims()
   if (!auth?.claims) {
     return { status: "unauthorized" }
   }
+  return { status: "ok", supabase }
+}
+
+export async function getPlayerRankings(
+  params: RankingsParams,
+): Promise<RankingsOutcome> {
+  const session = await signedInClient()
+  if (session.status !== "ok") {
+    return { status: session.status }
+  }
+  const { supabase } = session
 
   let positions: string[] | undefined
   let excludePositions = false
@@ -74,6 +90,9 @@ export async function getPlayerRankings(
     p_search: params.search === "" ? undefined : params.search,
     p_sort: params.sort,
     p_dir: params.dir,
+    p_flock_list: params.flockList,
+    p_flock_creator: params.flockCreator ?? undefined,
+    p_ranked_only: params.rankedOnly,
     lim: RANKINGS_PAGE_SIZE,
     off: (params.page - 1) * RANKINGS_PAGE_SIZE,
   })
@@ -113,4 +132,31 @@ export async function getPlayerRankings(
     rows,
     total: toNumber(data[0]?.total_count) ?? 0,
   }
+}
+
+export interface FlockRankingSet {
+  list: string
+  creators: string[]
+  fetchedAt: string
+}
+
+export async function getFlockRankingSets(): Promise<FlockRankingSet[]> {
+  const session = await signedInClient()
+  if (session.status !== "ok") {
+    return []
+  }
+  const { supabase } = session
+
+  const { data, error } = await supabase
+    .from("flock_ranking_sets")
+    .select("list, creators, fetched_at")
+  if (error) {
+    console.error("Flock ranking sets failed", error)
+    return []
+  }
+  return data.map((row) => ({
+    list: row.list,
+    creators: row.creators,
+    fetchedAt: row.fetched_at,
+  }))
 }
