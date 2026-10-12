@@ -1,7 +1,6 @@
 "use client"
 
 import { Loader2, Search, X } from "lucide-react"
-import Image from "next/image"
 import {
   useEffect,
   useId,
@@ -12,6 +11,7 @@ import {
   type FocusEvent,
   type KeyboardEvent,
 } from "react"
+import { PlayerAvatar } from "@/components/player-avatar"
 import { usePlayerTabs } from "@/components/player-card/player-tabs-provider"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -78,47 +78,6 @@ function statusMessage(status: SearchStatus, query: string): string {
     default:
       return "Searching…"
   }
-}
-
-function initials(name: string): string {
-  const words = name.split(/\s+/).filter(Boolean)
-  const first = words[0]?.[0] ?? ""
-  const last = words.length > 1 ? (words[words.length - 1]?.[0] ?? "") : ""
-  return (first + last).toUpperCase()
-}
-
-interface PlayerAvatarProps {
-  player: PlayerSearchResult
-}
-
-// Headshot from the Sleeper CDN (team logo for defenses). Decorative, since
-// the name sits next to it; a missing photo (403) falls back to initials.
-const PlayerAvatar: FC<PlayerAvatarProps> = ({ player }) => {
-  const [failed, setFailed] = useState(false)
-
-  if (failed) {
-    return (
-      <span
-        aria-hidden="true"
-        className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-muted font-mono text-[11px] text-muted-foreground"
-      >
-        {initials(player.name)}
-      </span>
-    )
-  }
-  return (
-    <Image
-      src={player.imageUrl}
-      alt=""
-      width={32}
-      height={32}
-      onError={() => setFailed(true)}
-      className={cn(
-        "size-8 shrink-0 rounded-full bg-muted",
-        player.position === "DEF" ? "object-contain p-0.5" : "object-cover",
-      )}
-    />
-  )
 }
 
 interface HighlightedNameProps {
@@ -438,7 +397,11 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
                   index === activeIndex && "bg-muted",
                 )}
               >
-                <PlayerAvatar player={player} />
+                <PlayerAvatar
+                  name={player.name}
+                  imageUrl={player.imageUrl}
+                  position={player.position}
+                />
                 <span className="min-w-0 flex-1 truncate text-sm text-foreground">
                   <HighlightedName name={player.name} query={trimmed} />
                 </span>

@@ -301,6 +301,59 @@ export type Database = {
     }
     Functions: {
       normalize_player_name: { Args: { name: string }; Returns: string }
+      player_rankings: {
+        Args: {
+          lim?: number
+          off?: number
+          p_active?: boolean
+          p_dir?: string
+          p_exclude_positions?: boolean
+          p_positions?: string[]
+          p_search?: string
+          p_season: number
+          p_season_type?: string
+          p_sort?: string
+          p_week?: number
+        }
+        Returns: {
+          active: boolean
+          def_int: number
+          def_td: number
+          fga: number
+          fgm: number
+          first_name: string
+          full_name: string
+          fum_rec: number
+          gp: number
+          is_home: boolean
+          last_name: string
+          opponent: string
+          pass_att: number
+          pass_cmp: number
+          pass_int: number
+          pass_td: number
+          pass_yd: number
+          player_id: string
+          position: string
+          pts_allow: number
+          pts_half_ppr: number
+          pts_ppr: number
+          pts_std: number
+          rec: number
+          rec_td: number
+          rec_tgt: number
+          rec_yd: number
+          rush_att: number
+          rush_td: number
+          rush_yd: number
+          sack: number
+          team: string
+          total_count: number
+          week_team: string
+          xpa: number
+          xpm: number
+        }[]
+      }
       search_players: {
         Args: { lim?: number; q: string }
         Returns: {

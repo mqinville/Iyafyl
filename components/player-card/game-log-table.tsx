@@ -26,7 +26,7 @@ const MIN_REGULAR_WEEKS = 18
 const stickyWk = "sticky left-0 z-10 w-12 min-w-12 bg-card"
 const stickyOpp = "sticky left-12 z-10 bg-card"
 
-const Dash: FC = () => {
+export const Dash: FC = () => {
   return (
     <>
       <span aria-hidden="true">{DASH}</span>
@@ -40,7 +40,7 @@ interface ColumnLabelProps {
   title: string
 }
 
-const ColumnLabel: FC<ColumnLabelProps> = ({ label, title }) => {
+export const ColumnLabel: FC<ColumnLabelProps> = ({ label, title }) => {
   return (
     <abbr title={title} className="no-underline">
       <span aria-hidden="true">{label}</span>
@@ -59,7 +59,7 @@ interface Row {
   bye: boolean
 }
 
-function formatDecimal(value: number): string {
+export function formatDecimal(value: number): string {
   return String(Number(value.toFixed(2)))
 }
 
@@ -158,7 +158,7 @@ function opponentLabel(row: Row): ReactNode {
   return row.isAway ? `@${row.opponent}` : row.opponent
 }
 
-const numCell = "text-center font-mono tabular-nums"
+export const numCell = "text-center font-mono tabular-nums"
 
 interface GameLogTableProps {
   card: PlayerCard
