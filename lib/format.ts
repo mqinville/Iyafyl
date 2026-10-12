@@ -5,3 +5,10 @@ export function formatRecord(
 ): string {
   return ties > 0 ? `${wins}–${losses}–${ties}` : `${wins}–${losses}`
 }
+
+export function formatPoints(points: number): string {
+  return new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+  }).format(points)
+}
