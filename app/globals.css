@@ -47,6 +47,12 @@
   --color-stripe-a: var(--stripe-a);
   --color-stripe-b: var(--stripe-b);
 
+  /* Trade verdict severity scale (ours, not from the handoff) */
+  --color-verdict-fair: var(--verdict-fair);
+  --color-verdict-slight: var(--verdict-slight);
+  --color-verdict-clear: var(--verdict-clear);
+  --color-verdict-robbery: var(--verdict-robbery);
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-stack);
   --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
@@ -91,6 +97,12 @@
   --brand-text: #b4501a;
   --stripe-a: #ece6d8;
   --stripe-b: #e6dfcf;
+
+  /* Verdict colors are ours, not from the handoff; all >= 5.3:1 on --card */
+  --verdict-fair: #1f6b3a;
+  --verdict-slight: #7a5200;
+  --verdict-clear: #a8430c;
+  --verdict-robbery: #b3261e;
 }
 
 .dark {
@@ -126,6 +138,12 @@
   --brand-text: #ec8a43;
   --stripe-a: #1b1a18;
   --stripe-b: #171614;
+
+  /* Verdict colors are ours, not from the handoff; all >= 7:1 on --card */
+  --verdict-fair: #5fc47f;
+  --verdict-slight: #e6c34a;
+  --verdict-clear: #f0894a;
+  --verdict-robbery: #f27a72;
 }
 
 @layer base {

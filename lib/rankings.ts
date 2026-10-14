@@ -94,10 +94,20 @@ export type PlayerStatus = "active" | "inactive"
 // constraint plus the player_rankings validation in
 // supabase/migrations/20261011120000_flock_rankings.sql.
 export type FlockList = "REDRAFT" | "REDRAFT_SF"
-export const FLOCK_LISTS: readonly { value: FlockList; label: string }[] = [
-  { value: "REDRAFT", label: "Redraft 1QB" },
-  { value: "REDRAFT_SF", label: "Redraft SF" },
+export const FLOCK_LISTS: readonly {
+  value: FlockList
+  label: string
+  shortLabel: string
+}[] = [
+  { value: "REDRAFT", label: "Redraft 1QB", shortLabel: "1QB" },
+  { value: "REDRAFT_SF", label: "Redraft SF", shortLabel: "Superflex" },
 ]
+
+// Average Flock rank per board for one player (null when unranked).
+export type TradeRankEntry = Record<FlockList, number | null>
+export interface TradeRankResponse {
+  ranks: TradeRankEntry
+}
 const DEFAULT_FLOCK_LIST: FlockList = "REDRAFT"
 const MAX_CREATOR_LENGTH = 60
 

@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { segmentedGroupClass, segmentedItemClass } from "@/lib/link-classes"
 import type { ScoringFormat } from "@/lib/player-card"
 import {
   FLOCK_LISTS,
@@ -235,13 +236,16 @@ export const RankingsFilters: FC<RankingsFiltersProps> = ({
             }
           }}
           aria-label="Player status"
-          className="order-last col-span-2 w-full rounded-full border border-border bg-card p-0.5 sm:order-none sm:w-fit"
+          className={cn(
+            segmentedGroupClass,
+            "order-last col-span-2 w-full sm:order-none sm:w-fit",
+          )}
         >
           {STATUS_OPTIONS.map((option) => (
             <ToggleGroupItem
               key={option.value}
               value={option.value}
-              className="h-10 flex-1 cursor-pointer rounded-full px-3 text-xs font-semibold text-muted-foreground data-[state=on]:bg-foreground data-[state=on]:text-background data-[state=on]:hover:bg-foreground data-[state=on]:hover:text-background sm:h-8 sm:flex-none"
+              className={cn(segmentedItemClass, "flex-1 px-3 sm:flex-none")}
             >
               {option.label}
             </ToggleGroupItem>

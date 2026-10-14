@@ -105,8 +105,14 @@ interface PlayerSearchProps {
   autoFocus?: boolean
   inline?: boolean
   shortcut?: boolean
-  // Runs after the card opens (e.g. the mobile sheet uses it to close).
+  // Runs after a result is picked (after the card opens, unless
+  // openOnSelect is false); e.g. the mobile sheet uses it to close.
   onSelect?: (player: PlayerSearchResult) => void
+  // false: pick a player without opening the player card.
+  openOnSelect?: boolean
+  // Accessible name for the input; defaults to "Search players".
+  label?: string
+  placeholder?: string
 }
 
 export const PlayerSearch: FC<PlayerSearchProps> = ({
@@ -115,6 +121,9 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
   inline,
   shortcut,
   onSelect,
+  openOnSelect = true,
+  label = "Search players",
+  placeholder = label,
 }) => {
   const { openPlayer } = usePlayerTabs()
   const [query, setQuery] = useState("")
@@ -222,7 +231,9 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
     if (status !== "ready") {
       return
     }
-    openPlayer(player)
+    if (openOnSelect) {
+      openPlayer(player)
+    }
     onSelect?.(player)
     // Keep focus free to move into the dialog.
     reset()
@@ -328,7 +339,7 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
           // Fallback focus target when the player card closes (header copy only)
           data-player-search-focus={inline ? undefined : ""}
           role="combobox"
-          aria-label="Search players"
+          aria-label={label}
           aria-expanded={showPanel}
           aria-controls={listId}
           aria-autocomplete="list"
@@ -339,7 +350,7 @@ export const PlayerSearch: FC<PlayerSearchProps> = ({
           spellCheck={false}
           enterKeyHint="search"
           autoFocus={autoFocus}
-          placeholder="Search players"
+          placeholder={placeholder}
           value={query}
           onChange={handleChange}
           onFocus={() => setOpen(true)}
