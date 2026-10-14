@@ -111,7 +111,7 @@ const TabStrip: FC = () => {
             className={cn(
               "flex shrink-0 items-center rounded-t-lg border border-b-0 border-transparent motion-safe:transition-colors",
               active
-                ? "border-border bg-card text-foreground shadow-raised"
+                ? "border-border bg-card text-foreground"
                 : "text-muted-foreground hover:bg-card/60 hover:text-foreground",
             )}
           >

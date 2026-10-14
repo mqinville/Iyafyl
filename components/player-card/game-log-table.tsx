@@ -238,7 +238,7 @@ export const GameLogTable: FC<GameLogTableProps> = ({ card, season }) => {
       role="region"
       aria-label={`${card.bio.name} game log, ${season}`}
       tabIndex={0}
-      className="overflow-x-auto rounded-xl bg-muted py-1 pr-1 shadow-raised ring-1 ring-border focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+      className="overflow-x-auto rounded-xl bg-muted py-1 pr-1 ring-1 ring-border focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
     >
       <table
         data-slot="table"

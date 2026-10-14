@@ -31,7 +31,7 @@ const Headshot: FC<HeadshotProps> = ({ bio }) => {
   const isDef = bio.position === "DEF"
 
   return (
-    <div className="relative size-32 shrink-0 overflow-hidden rounded-xl bg-card shadow-raised ring-1 ring-foreground/15 sm:size-40">
+    <div className="relative size-32 shrink-0 overflow-hidden rounded-xl bg-card ring-1 ring-foreground/15 sm:size-40">
       {bio.team && !logoFailed && !isDef ? (
         <Image
           src={teamLogoUrl(bio.team)}
@@ -103,7 +103,7 @@ export const PlayerCardHeader: FC<PlayerCardHeaderProps> = ({ bio }) => {
   const height = formatHeight(bio.heightIn)
 
   return (
-    <div className="relative flex flex-col gap-5 overflow-hidden rounded-2xl bg-linear-to-br from-brand/20 via-muted to-card p-4 shadow-raised ring-1 ring-border sm:flex-row sm:items-center sm:p-5">
+    <div className="relative flex flex-col gap-5 overflow-hidden rounded-xl bg-muted p-4 ring-1 ring-border sm:flex-row sm:items-center sm:p-5">
       <Headshot bio={bio} />
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-3">
@@ -111,13 +111,13 @@ export const PlayerCardHeader: FC<PlayerCardHeaderProps> = ({ bio }) => {
             {bio.name}
           </h2>
           {bio.position ? (
-            <span className="rounded-md bg-primary px-2 py-0.5 font-mono text-xs font-medium tracking-wide text-primary-foreground shadow-raised">
+            <span className="rounded-md bg-primary px-2 py-0.5 font-mono text-xs font-medium tracking-wide text-primary-foreground">
               <span className="sr-only">Position: </span>
               {bio.position}
             </span>
           ) : null}
           {bio.injuryStatus ? (
-            <span className="rounded-md bg-destructive px-2 py-0.5 font-mono text-xs font-medium text-background shadow-raised">
+            <span className="rounded-md bg-destructive px-2 py-0.5 font-mono text-xs font-medium text-background">
               <span className="sr-only">Injury status: </span>
               {bio.injuryStatus}
             </span>

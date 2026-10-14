@@ -49,8 +49,6 @@
   --color-heat-pos: var(--heat-pos);
   --color-heat-neg: var(--heat-neg);
 
-  --shadow-raised: var(--raised);
-
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-stack);
   --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
@@ -99,10 +97,6 @@
   /* Heat-map tints for stat cells (lib/stat-color.ts), mixed into --card */
   --heat-pos: #8a9a14;
   --heat-neg: #d4372c;
-  /* Soft elevation with an inner top highlight */
-  --raised:
-    inset 0 1px 0 rgb(255 255 255 / 0.55), 0 1px 2px rgb(23 21 15 / 0.08),
-    0 10px 24px -14px rgb(23 21 15 / 0.35);
 }
 
 .dark {
@@ -141,9 +135,6 @@
 
   --heat-pos: #a3b31c;
   --heat-neg: #e5483a;
-  --raised:
-    inset 0 1px 0 rgb(255 255 255 / 0.06), 0 1px 2px rgb(0 0 0 / 0.4),
-    0 12px 28px -14px rgb(0 0 0 / 0.7);
 }
 
 @layer base {
