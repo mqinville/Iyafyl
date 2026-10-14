@@ -46,6 +46,10 @@
   --color-brand-text: var(--brand-text);
   --color-stripe-a: var(--stripe-a);
   --color-stripe-b: var(--stripe-b);
+  --color-heat-pos: var(--heat-pos);
+  --color-heat-neg: var(--heat-neg);
+
+  --shadow-raised: var(--raised);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-stack);
@@ -91,6 +95,14 @@
   --brand-text: #b4501a;
   --stripe-a: #ece6d8;
   --stripe-b: #e6dfcf;
+
+  /* Heat-map tints for stat cells (lib/stat-color.ts), mixed into --card */
+  --heat-pos: #8a9a14;
+  --heat-neg: #d4372c;
+  /* Soft elevation with an inner top highlight */
+  --raised:
+    inset 0 1px 0 rgb(255 255 255 / 0.55), 0 1px 2px rgb(23 21 15 / 0.08),
+    0 10px 24px -14px rgb(23 21 15 / 0.35);
 }
 
 .dark {
@@ -126,6 +138,12 @@
   --brand-text: #ec8a43;
   --stripe-a: #1b1a18;
   --stripe-b: #171614;
+
+  --heat-pos: #a3b31c;
+  --heat-neg: #e5483a;
+  --raised:
+    inset 0 1px 0 rgb(255 255 255 / 0.06), 0 1px 2px rgb(0 0 0 / 0.4),
+    0 12px 28px -14px rgb(0 0 0 / 0.7);
 }
 
 @layer base {
@@ -175,5 +193,51 @@
       var(--stripe-a) 0 8px,
       var(--stripe-b) 8px 16px
     );
+  }
+}
+
+/*
+ * Heat levels 1-4 for stat cells. The tint is mixed into --card so the number
+ * keeps AA contrast against --foreground in both themes (checked at the
+ * strongest level). Muted is for zero / empty values.
+ */
+@layer utilities {
+  .heat-pos-1,
+  .heat-pos-2,
+  .heat-pos-3,
+  .heat-pos-4,
+  .heat-neg-1,
+  .heat-neg-2,
+  .heat-neg-3,
+  .heat-neg-4 {
+    color: var(--foreground);
+  }
+  .heat-pos-1 {
+    background-color: color-mix(in srgb, var(--heat-pos) 14%, var(--card));
+  }
+  .heat-pos-2 {
+    background-color: color-mix(in srgb, var(--heat-pos) 28%, var(--card));
+  }
+  .heat-pos-3 {
+    background-color: color-mix(in srgb, var(--heat-pos) 42%, var(--card));
+  }
+  .heat-pos-4 {
+    background-color: color-mix(in srgb, var(--heat-pos) 56%, var(--card));
+  }
+  .heat-neg-1 {
+    background-color: color-mix(in srgb, var(--heat-neg) 14%, var(--card));
+  }
+  .heat-neg-2 {
+    background-color: color-mix(in srgb, var(--heat-neg) 28%, var(--card));
+  }
+  .heat-neg-3 {
+    background-color: color-mix(in srgb, var(--heat-neg) 42%, var(--card));
+  }
+  .heat-neg-4 {
+    background-color: color-mix(in srgb, var(--heat-neg) 56%, var(--card));
+  }
+  .heat-muted {
+    color: var(--faint);
+    background-color: color-mix(in srgb, var(--card) 45%, transparent);
   }
 }

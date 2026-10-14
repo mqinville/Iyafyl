@@ -109,10 +109,10 @@ const TabStrip: FC = () => {
             key={tab.id}
             role="presentation"
             className={cn(
-              "flex shrink-0 items-center rounded-t-[5px] border border-b-0 border-transparent",
+              "flex shrink-0 items-center rounded-t-lg border border-b-0 border-transparent motion-safe:transition-colors",
               active
-                ? "border-border bg-card text-foreground"
-                : "text-muted-foreground hover:bg-card/50",
+                ? "border-border bg-card text-foreground shadow-raised"
+                : "text-muted-foreground hover:bg-card/60 hover:text-foreground",
             )}
           >
             <button
@@ -240,7 +240,7 @@ const GameLogs: FC<GameLogsProps> = ({ card, season, onSeasonChange }) => {
     >
       <h3
         id="game-logs-heading"
-        className="font-display text-xl font-semibold tracking-wide text-foreground uppercase"
+        className="border-l-4 border-brand pl-3 font-display text-xl leading-none font-semibold tracking-wide text-foreground uppercase"
       >
         Game logs
       </h3>

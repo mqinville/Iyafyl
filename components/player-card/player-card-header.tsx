@@ -31,7 +31,7 @@ const Headshot: FC<HeadshotProps> = ({ bio }) => {
   const isDef = bio.position === "DEF"
 
   return (
-    <div className="relative size-32 shrink-0 overflow-hidden rounded-[5px] border border-border bg-muted sm:size-40">
+    <div className="relative size-32 shrink-0 overflow-hidden rounded-xl bg-card shadow-raised ring-1 ring-foreground/15 sm:size-40">
       {bio.team && !logoFailed && !isDef ? (
         <Image
           src={teamLogoUrl(bio.team)}
@@ -62,7 +62,7 @@ const Headshot: FC<HeadshotProps> = ({ bio }) => {
           )}
         />
       )}
-      <div className="absolute inset-x-0 bottom-0 bg-primary px-2 py-1 text-center font-mono text-[11px] font-medium tracking-wide text-primary-foreground">
+      <div className="absolute inset-x-0 bottom-0 bg-primary/95 px-2 py-1 text-center font-mono text-[11px] font-medium tracking-wide text-primary-foreground">
         {[
           bio.position,
           bio.team
@@ -83,11 +83,11 @@ interface BioStatProps {
 
 const BioStat: FC<BioStatProps> = ({ label, value }) => {
   return (
-    <div className="min-w-0">
+    <div className="min-w-0 px-3 py-1.5 first:rounded-l-lg last:rounded-r-lg">
       <dt className="text-[11px] font-semibold tracking-wider text-faint uppercase">
         {label}
       </dt>
-      <dd className="font-mono break-words text-sm text-foreground tabular-nums">
+      <dd className="font-mono text-sm break-words text-foreground tabular-nums">
         {value}
       </dd>
     </div>
@@ -103,21 +103,27 @@ export const PlayerCardHeader: FC<PlayerCardHeaderProps> = ({ bio }) => {
   const height = formatHeight(bio.heightIn)
 
   return (
-    <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+    <div className="relative flex flex-col gap-5 overflow-hidden rounded-2xl bg-linear-to-br from-brand/20 via-muted to-card p-4 shadow-raised ring-1 ring-border sm:flex-row sm:items-center sm:p-5">
       <Headshot bio={bio} />
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <h2 className="font-display text-4xl leading-none font-semibold text-foreground sm:text-5xl">
             {bio.name}
           </h2>
+          {bio.position ? (
+            <span className="rounded-md bg-primary px-2 py-0.5 font-mono text-xs font-medium tracking-wide text-primary-foreground shadow-raised">
+              <span className="sr-only">Position: </span>
+              {bio.position}
+            </span>
+          ) : null}
           {bio.injuryStatus ? (
-            <span className="rounded-[5px] bg-destructive px-2 py-0.5 font-mono text-xs font-medium text-background">
+            <span className="rounded-md bg-destructive px-2 py-0.5 font-mono text-xs font-medium text-background shadow-raised">
               <span className="sr-only">Injury status: </span>
               {bio.injuryStatus}
             </span>
           ) : null}
         </div>
-        <dl className="flex flex-wrap gap-x-6 gap-y-2">
+        <dl className="flex w-fit max-w-full flex-wrap divide-x divide-border rounded-lg bg-card/80 ring-1 ring-border">
           <BioStat label="Age" value={age !== null ? String(age) : "–"} />
           <BioStat label="Height" value={height ?? "–"} />
           <BioStat
